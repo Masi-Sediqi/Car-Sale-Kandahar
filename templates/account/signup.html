@@ -1,0 +1,446 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load allauth i18n %}
+
+{% block head_title %}
+    {% trans "Signup" %}
+{% endblock head_title %}
+
+{% block content %}
+<style>
+    /* Hide header and footer */
+    header, footer, .main-header, .site-header, .main-footer, .site-footer {
+        display: none !important;
+    }
+    
+    /* Center the content with black/golden theme */
+    body {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    }
+    
+    .app-wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+    }
+    
+    .app-box {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(255, 215, 0, 0.15);
+        max-width: 800px;
+        margin: 0 auto;
+        background: #111;
+        border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+    
+    /* Decorative elements */
+    .app-shape-one,
+    .app-shape-two {
+        position: absolute;
+        opacity: 0.05;
+        pointer-events: none;
+    }
+    
+    .app-shape-one {
+        top: -50px;
+        left: -50px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+        border-radius: 50%;
+    }
+    
+    .app-shape-two {
+        bottom: -50px;
+        right: -50px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+        border-radius: 50%;
+    }
+    
+    .row {
+        justify-content: center;
+    }
+    
+    .col-lg-6 {
+        flex: 0 0 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .app-content {
+        padding: 40px;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .content-title-two {
+        margin-bottom: 30px;
+    }
+    
+    .content-title-two span {
+        color: #ffd700;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: block;
+        margin-bottom: 15px;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+    
+    .content-title-two h3 {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 0 15px;
+        color: #ffd700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        letter-spacing: 1px;
+    }
+    
+    .content-title-two h3::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #ffd700, transparent);
+        margin: 20px auto 0;
+    }
+    
+    .content-title-two p {
+        color: #999;
+        font-size: 16px;
+    }
+    
+    /* Form Styles */
+    .signup-form {
+        margin-top: 20px;
+    }
+    
+    .signup-form .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    
+    .signup-form input[type="text"],
+    .signup-form input[type="email"],
+    .signup-form input[type="password"] {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid #333;
+        border-radius: 12px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        background-color: #222;
+        color: #fff;
+    }
+    
+    .signup-form input::placeholder {
+        color: #666;
+    }
+    
+    .signup-form input:focus {
+        outline: none;
+        border-color: #ffd700;
+        background-color: #2a2a2a;
+        box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.1);
+    }
+    
+    /* Password help text styling */
+    .signup-form .form-text {
+        color: #fff !important;
+        font-size: 13px;
+        margin-top: 8px;
+        display: block;
+        padding-left: 5px;
+        opacity: 0.9;
+        line-height: 1.5;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10px 15px;
+        border-radius: 8px;
+        border-left: 3px solid #ffd700;
+    }
+    
+    .signup-form .form-text ul {
+        list-style: none;
+        padding: 0;
+        margin: 5px 0 0 0;
+    }
+    
+    .signup-form .form-text li {
+        margin: 8px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .signup-form .form-text li::before {
+        content: "•";
+        color: #ffd700;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    
+    .signup-form .btn-primary {
+        background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
+        color: #000;
+        border: none;
+        padding: 14px 30px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 10px;
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+    }
+    
+    .signup-form .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        background: linear-gradient(135deg, #ffd700 0%, #daa520 100%);
+    }
+    
+    .signup-form .btn-outline-primary {
+        background: transparent;
+        color: #ffd700;
+        border: 2px solid #ffd700;
+        padding: 12px 30px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        text-decoration: none;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .signup-form .btn-outline-primary:hover {
+        background: #ffd700;
+        color: #000;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+    }
+    
+    .signup-form .text-danger {
+        color: #ff6b6b;
+        font-size: 13px;
+        margin-top: 6px;
+        display: block;
+        padding-left: 5px;
+    }
+    
+    .login-link {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 2px dashed #333;
+    }
+    
+    .login-link p {
+        color: #999;
+        font-size: 15px;
+    }
+    
+    .login-link a {
+        color: #ffd700;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+    
+    .login-link a:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+    
+    /* Social Login Styles */
+    .social-login {
+        margin-top: 30px;
+    }
+    
+    .social-login p {
+        color: #999;
+        font-size: 14px;
+        margin-bottom: 15px;
+        position: relative;
+    }
+    
+    .social-login p::before,
+    .social-login p::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 30%;
+        height: 1px;
+        background: #333;
+    }
+    
+    .social-login p::before {
+        left: 0;
+    }
+    
+    .social-login p::after {
+        right: 0;
+    }
+    
+    .social-login .socialaccount_providers {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .social-login .socialaccount_providers li {
+        display: inline-block;
+        flex: 1;
+    }
+    
+    .social-login .socialaccount_providers a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 20px;
+        background: #222;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        border: 2px solid #333;
+        font-weight: 500;
+        gap: 8px;
+    }
+    
+    .social-login .socialaccount_providers a:hover {
+        background: #2a2a2a;
+        border-color: #ffd700;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+        color: #ffd700;
+    }
+    
+    hr {
+        margin: 25px 0;
+        border: 0;
+        border-top: 2px solid #333;
+    }
+    
+    .app-img {
+        display: none;
+    }
+    
+    /* Progress circle for back-to-top */
+    .progress-wrap svg path {
+        stroke: #ffd700 !important;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .app-content {
+            padding: 30px 20px;
+        }
+        
+        .content-title-two h3 {
+            font-size: 26px;
+        }
+        
+        .col-lg-6 {
+            max-width: 100%;
+        }
+        
+        .social-login .socialaccount_providers {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+</style>
+
+<!-- Sign Up Section Start -->
+<div class="app-wrap">
+    <div class="container">
+        <div class="app-box">
+            <div class="app-shape-one"></div>
+            <div class="app-shape-two"></div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="app-content">
+                        <div class="content-title-two">
+                            <span>{% trans "Welcome" %}</span>
+                            <h3>{% trans "Create Your Account" %}</h3>
+                            <p>{% trans "Join our community and get access to exclusive features" %}</p>
+                        </div>
+                        
+                        <!-- Sign Up Form -->
+                        {% if not SOCIALACCOUNT_ONLY %}
+                            {% url 'account_signup' as action_url %}
+                            <form method="post" action="{{ action_url }}" class="signup-form">
+                                {% csrf_token %}
+                                
+                                {% for field in form %}
+                                    <div class="form-group">
+                                        {{ field }}
+                                        {% if field.errors %}
+                                            <small class="text-danger">{{ field.errors|striptags }}</small>
+                                        {% endif %}
+                                        
+                                        <!-- Django's help text will appear here in white -->
+                                        {% if field.help_text %}
+                                            <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                                
+                                {{ redirect_field }}
+                                
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    {% trans "Sign Up" %}
+                                </button>
+                            </form>
+                        {% endif %}
+
+                        {% if PASSKEY_SIGNUP_ENABLED %}
+                            <hr>
+                            <a href="{{ signup_by_passkey_url }}" class="btn btn-outline-primary btn-block">
+                                {% trans "Sign up using a passkey" %}
+                            </a>
+                        {% endif %}
+
+                        <div class="login-link text-center">
+                            <p>
+                                {% blocktranslate %}
+                                Already have an account? 
+                                <a href="{{ login_url }}" class="text-primary">Sign in</a>
+                                {% endblocktranslate %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sign Up Section End -->
+
+<!-- Back-to-top button Start -->
+<div class="paginacontainer">	
+    <div class="progress-wrap bounce">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewbox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" stroke="#ffd700" stroke-width="4" fill="none"/>
+        </svg>
+    </div>
+</div> 
+<!-- Back-to-top button End -->
+{% endblock content %}

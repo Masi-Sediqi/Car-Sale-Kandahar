@@ -1,0 +1,473 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load allauth i18n %}
+
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+
+{% block content %}
+<style>
+    /* Hide header and footer */
+    header, footer, .main-header, .site-header, .main-footer, .site-footer {
+        display: none !important;
+    }
+    
+    /* Center the content with black/golden theme */
+    body {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    }
+    
+    .login-wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+    }
+    
+    .login-box {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(255, 215, 0, 0.15);
+        max-width: 800px;
+        margin: 0 auto;
+        background: #111;
+        border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+    
+    /* Decorative elements */
+    .login-shape-one,
+    .login-shape-two {
+        position: absolute;
+        opacity: 0.05;
+        pointer-events: none;
+    }
+    
+    .login-shape-one {
+        top: -50px;
+        left: -50px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+        border-radius: 50%;
+    }
+    
+    .login-shape-two {
+        bottom: -50px;
+        right: -50px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+        border-radius: 50%;
+    }
+    
+    .row {
+        justify-content: center;
+    }
+    
+    .col-lg-6 {
+        flex: 0 0 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .login-content {
+        padding: 40px;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .content-title-two {
+        margin-bottom: 30px;
+    }
+    
+    .content-title-two span {
+        color: #ffd700;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: block;
+        margin-bottom: 15px;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+    
+    .content-title-two h3 {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 0 15px;
+        color: #ffd700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        letter-spacing: 1px;
+    }
+    
+    .content-title-two h3::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #ffd700, transparent);
+        margin: 20px auto 0;
+    }
+    
+    .content-title-two p {
+        color: #999;
+        font-size: 16px;
+    }
+    
+    /* Form Styles */
+    .login-form {
+        margin-top: 20px;
+    }
+    
+    .login-form .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    
+    .login-form input[type="text"],
+    .login-form input[type="email"],
+    .login-form input[type="password"] {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid #333;
+        border-radius: 12px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        background-color: #222;
+        color: #fff;
+    }
+    
+    .login-form input::placeholder {
+        color: #666;
+    }
+    
+    .login-form input:focus {
+        outline: none;
+        border-color: #ffd700;
+        background-color: #2a2a2a;
+        box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.1);
+    }
+    
+    .login-form .btn-primary {
+        background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
+        color: #000;
+        border: none;
+        padding: 14px 30px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 10px;
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+    }
+    
+    .login-form .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        background: linear-gradient(135deg, #ffd700 0%, #daa520 100%);
+    }
+    
+    .login-form .btn-outline-primary {
+        background: transparent;
+        color: #ffd700;
+        border: 2px solid #ffd700;
+        padding: 12px 30px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        text-decoration: none;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .login-form .btn-outline-primary:hover {
+        background: #ffd700;
+        color: #000;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+    }
+    
+    .login-form .text-danger {
+        color: #ff6b6b;
+        font-size: 13px;
+        margin-top: 6px;
+        display: block;
+        padding-left: 5px;
+    }
+    
+    .login-form .form-text {
+        color: #999;
+        font-size: 12px;
+        margin-top: 6px;
+        display: block;
+        padding-left: 5px;
+    }
+    
+    /* Remember me and forgot password */
+    .form-options {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0;
+        color: #999;
+    }
+    
+    .remember-me {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .remember-me input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #ffd700;
+        cursor: pointer;
+    }
+    
+    .remember-me label {
+        cursor: pointer;
+        font-size: 14px;
+    }
+    
+    .forgot-password a {
+        color: #ffd700;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s ease;
+    }
+    
+    .forgot-password a:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+    
+    .signup-link {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 2px dashed #333;
+    }
+    
+    .signup-link p {
+        color: #999;
+        font-size: 15px;
+    }
+    
+    .signup-link a {
+        color: #ffd700;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+    
+    .signup-link a:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+    
+    /* Social Login Styles */
+    .social-login {
+        margin-top: 30px;
+    }
+    
+    .social-login p {
+        color: #999;
+        font-size: 14px;
+        margin-bottom: 15px;
+        position: relative;
+    }
+    
+    .social-login p::before,
+    .social-login p::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 30%;
+        height: 1px;
+        background: #333;
+    }
+    
+    .social-login p::before {
+        left: 0;
+    }
+    
+    .social-login p::after {
+        right: 0;
+    }
+    
+    .social-login .socialaccount_providers {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .social-login .socialaccount_providers li {
+        display: inline-block;
+        flex: 1;
+    }
+    
+    .social-login .socialaccount_providers a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 20px;
+        background: #222;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        border: 2px solid #333;
+        font-weight: 500;
+        gap: 8px;
+    }
+    
+    .social-login .socialaccount_providers a:hover {
+        background: #2a2a2a;
+        border-color: #ffd700;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+        color: #ffd700;
+    }
+    
+    hr {
+        margin: 25px 0;
+        border: 0;
+        border-top: 2px solid #333;
+    }
+    
+    /* Progress circle for back-to-top */
+    .progress-wrap svg path {
+        stroke: #ffd700 !important;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .login-content {
+            padding: 30px 20px;
+        }
+        
+        .content-title-two h3 {
+            font-size: 26px;
+        }
+        
+        .col-lg-6 {
+            max-width: 100%;
+        }
+        
+        .social-login .socialaccount_providers {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .form-options {
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+        }
+    }
+</style>
+
+<!-- Login Section Start -->
+<div class="login-wrap">
+    <div class="container">
+        <div class="login-box">
+            <div class="login-shape-one"></div>
+            <div class="login-shape-two"></div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="login-content">
+                        <div class="content-title-two">
+                            <span>{% trans "Welcome Back" %}</span>
+                            <h3>{% trans "Sign In" %}</h3>
+                            <p>{% trans "Access your account and continue your journey" %}</p>
+                        </div>
+                        
+                        <!-- Login Form -->
+                        {% if not SOCIALACCOUNT_ONLY %}
+                            {% url 'account_login' as action_url %}
+                            <form method="post" action="{{ action_url }}" class="login-form">
+                                {% csrf_token %}
+                                
+                                {% for field in form %}
+                                    {% if field.name != 'remember' %}
+                                        <div class="form-group">
+                                            {{ field }}
+                                            {% if field.errors %}
+                                                <small class="text-danger">{{ field.errors|striptags }}</small>
+                                            {% endif %}
+                                            {% if field.help_text %}
+                                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                <!-- Remember me and Forgot password -->
+                                <div class="form-options">
+                                    {% if form.remember %}
+                                        <div class="remember-me">
+                                            {{ form.remember }}
+                                            <label for="{{ form.remember.id_for_label }}">{% trans "Remember me" %}</label>
+                                        </div>
+                                    {% endif %}
+                                    <div class="forgot-password">
+                                        <a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                                    </div>
+                                </div>
+                                
+                                {{ redirect_field }}
+                                
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    {% trans "Sign In" %}
+                                </button>
+                            </form>
+                        {% endif %}
+
+                        {% if SOCIALACCOUNT_ENABLED %}
+                            <div class="social-login mt-4">
+                                <p class="text-center">{% trans "Or sign in with" %}</p>
+                                {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+                            </div>
+                        {% endif %}
+
+                        <div class="signup-link text-center">
+                            <p>
+                                {% blocktranslate %}
+                                Don't have an account? 
+                                <a href="{{ signup_url }}" class="text-primary">Sign up</a>
+                                {% endblocktranslate %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login Section End -->
+
+<!-- Back-to-top button Start -->
+<div class="paginacontainer">	
+    <div class="progress-wrap bounce">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewbox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" stroke="#ffd700" stroke-width="4" fill="none"/>
+        </svg>
+    </div>
+</div> 
+<!-- Back-to-top button End -->
+{% endblock content %}

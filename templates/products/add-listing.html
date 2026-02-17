@@ -1,0 +1,503 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap br-15 bg-f">
+    <div class="container">
+        <div class="breadcrumb-title">
+            <h2>موتر جدید</h2>
+            <ul class="breadcrumb-menu list-style">
+                <li><a href="/">داشبورد </a></li>
+                <li>موتر جدید</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<div class="add-listing-wrap ptb-100" style="font-family: 'Vazirmatn', sans-serif;">
+    <div class="container">
+        <h2>اضافه کردن موتر جدید</h2>
+        <div class="add-listing-box">
+            <form action="#" method="POST" enctype="multipart/form-data" class="add-listing-form needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <!-- Existing car info fields -->
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>عنوان موتر</label>
+                            <input type="text" name="title" placeholder="کرولا 97 کانادایی" required>
+                            <div class="error-message">لطفاً عنوان موتر را وارد کنید</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>برند و مدل</label>
+                            <input type="text" name="brand_model" placeholder="97" required>
+                            <div class="error-message">لطفاً برند و مدل را وارد کنید</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>قیمت</label>
+                            <input type="number" name="price" placeholder="4500 دالر" required>
+                            <div class="error-message">لطفاً قیمت را وارد کنید</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>سال ساخت</label>
+                            <input type="number" name="year_of_manufacture" placeholder="مثلا 1997" required>
+                            <div class="error-message">لطفاً سال ساخت را وارد کنید</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>نوعیت گیربکس</label>
+                            <select name="gearbox_type" required>
+                                <option value="">انتخاب</option>
+                                <option value="automatic">اتومات</option>
+                                <option value="manual">گیر</option>
+                            </select>
+                            <div class="error-message">لطفاً نوعیت گیربکس را انتخاب کنید</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>نوع سوخت</label>
+                            <select name="fuel_type" required>
+                                <option value="">انتخاب</option>
+                                <option value="petrol">پترول</option>
+                                <option value="diesel">ډیزل</option>
+                                <option value="electric">گازی</option>
+                                <option value="hybrid">هایبرید</option>
+                            </select>
+                            <div class="error-message">لطفاً نوع سوخت را انتخاب کنید</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>کارکرد (کیلومتر)</label>
+                            <input type="number" name="mileage_km" placeholder="مثلا 50000" required>
+                            <div class="error-message">لطفاً کارکرد را وارد کنید</div>
+                        </div>
+                    </div>
+
+                    <!-- Main Image Field (NEW) -->
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>تصویر اصلی</label>
+                            <input type="file" name="main_image" accept="image/*" style="padding: 8px; border: 1px dashed #ccc; border-radius: 4px; width: 100%;">
+                            <small style="display: block; margin-top: 5px; color: #666;">تصویر اصلی موتر را انتخاب کنید</small>
+                        </div>
+                    </div>
+
+                    <!-- Link for more images -->
+                    <div class="col-12 mb-3">
+                        <a href="#" id="more-images-link" 
+                        style="display: block; 
+                                width: 100%; 
+                                text-align: center; 
+                                padding: 12px 0; 
+                                background: #f8f9fa; 
+                                border: 1px solid #ddd; 
+                                border-radius: 4px; 
+                                text-decoration: none; 
+                                color: #333; 
+                                font-weight: 500;
+                                transition: all 0.3s ease;">
+                            + تصاویر اضافی
+                        </a>
+                    </div>
+
+                    <!-- Multiple Images Upload Section (Initially Hidden) -->
+                    <div class="col-12" id="more-images-section" style="display: none; opacity: 0; transition: opacity 0.4s ease;">
+                        <div class="form-group">
+                            <label>تصاویر اضافی</label>
+                            <input type="file" id="more-images-input" multiple accept="image/*" style="padding: 8px; border: 1px dashed #ccc; border-radius: 4px; width: 100%;">
+                            <small style="display: block; margin-top: 5px; color: #666;">می‌توانید چندین تصویر را انتخاب کنید</small>
+                        </div>
+                        <div id="image-preview-container" class="mt-3" style="display: flex; flex-direction: column; gap: 15px;">
+                            <!-- Previews with captions will appear here -->
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>توضیحات</label>
+                            <textarea name="description" cols="30" rows="5" placeholder="توضیحات کامل موتر را وارد کنید..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-two bt-2">ثبت آگهی</button>
+            </form>
+
+            <style>
+                /* Form validation styles - scoped to this form only */
+                .needs-validation input:invalid,
+                .needs-validation select:invalid,
+                .needs-validation textarea:invalid {
+                    border-color: #ff4444 !important;
+                    background-color: #fff8f8;
+                }
+
+                .needs-validation input:valid,
+                .needs-validation select:valid,
+                .needs-validation textarea:valid {
+                    border-color: #00C851 !important;
+                    background-color: #f8fff8;
+                }
+
+                /* Style for inputs when they are focused */
+                .needs-validation input:focus,
+                .needs-validation select:focus,
+                .needs-validation textarea:focus {
+                    outline: none;
+                    border-color: #999;
+                    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+                }
+
+                /* Error message styling */
+                .needs-validation .error-message {
+                    display: none;
+                    color: #ff4444;
+                    font-size: 13px;
+                    margin-top: 5px;
+                    text-align: right;
+                }
+
+                /* Show error message when input is invalid and form was validated */
+                .needs-validation.was-validated input:invalid ~ .error-message,
+                .needs-validation.was-validated select:invalid ~ .error-message,
+                .needs-validation.was-validated textarea:invalid ~ .error-message {
+                    display: block;
+                }
+
+                /* Add icons for valid/invalid */
+                .needs-validation.was-validated .form-group {
+                    position: relative;
+                }
+
+                .needs-validation.was-validated input:invalid,
+                .needs-validation.was-validated select:invalid,
+                .needs-validation.was-validated textarea:invalid {
+                    padding-left: 30px;
+                    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23ff4444" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>');
+                    background-repeat: no-repeat;
+                    background-position: left 8px center;
+                    background-size: 16px;
+                }
+
+                .needs-validation.was-validated input:valid,
+                .needs-validation.was-validated select:valid,
+                .needs-validation.was-validated textarea:valid {
+                    padding-left: 30px;
+                    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%2300C851" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>');
+                    background-repeat: no-repeat;
+                    background-position: left 8px center;
+                    background-size: 16px;
+                }
+
+                /* RTL adjustments */
+                .form-group {
+                    text-align: right;
+                    position: relative;
+                }
+
+                input, select, textarea {
+                    width: 100%;
+                    padding: 8px 12px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    font-family: inherit;
+                    box-sizing: border-box;
+                }
+
+                .needs-validation.was-validated input:invalid,
+                .needs-validation.was-validated select:invalid,
+                .needs-validation.was-validated textarea:invalid,
+                .needs-validation.was-validated input:valid,
+                .needs-validation.was-validated select:valid,
+                .needs-validation.was-validated textarea:valid {
+                    padding-left: 35px;
+                    padding-right: 12px;
+                }
+
+                /* Simple fade animation for image previews */
+                .preview-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    padding: 15px;
+                    background: #f9f9f9;
+                    border-radius: 4px;
+                    border: 1px solid #eee;
+                    animation: fadeIn 0.3s ease-in;
+                    position: relative;
+                }
+                
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(5px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                .preview-item img {
+                    width: 150px;
+                    height: 100px;
+                    object-fit: cover;
+                    border-radius: 4px;
+                    border: 1px solid #ddd;
+                }
+                
+                .preview-item .preview-content {
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                }
+                
+                .preview-item input[type="text"] {
+                    flex: 1;
+                    padding: 8px 12px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    transition: border-color 0.2s ease;
+                }
+                
+                .preview-item input[type="text"]:focus {
+                    outline: none;
+                    border-color: #999;
+                }
+                
+                .remove-image {
+                    background: #ff4444;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    font-size: 18px;
+                    font-weight: bold;
+                    transition: background 0.2s ease;
+                    padding: 0;
+                    line-height: 1;
+                }
+                
+                .remove-image:hover {
+                    background: #cc0000;
+                }
+                
+                #more-images-link:hover {
+                    background: #e9e9e9 !important;
+                    border-color: #ccc !important;
+                }
+                
+                .image-counter {
+                    font-size: 13px;
+                    color: #666;
+                    margin-top: 5px;
+                    text-align: center;
+                }
+
+                /* Hidden file inputs for form submission */
+                .hidden-file-input {
+                    display: none;
+                }
+            </style>
+
+            <script>
+                // Form validation script
+                (function() {
+                    'use strict';
+                    
+                    var forms = document.querySelectorAll('.needs-validation');
+                    
+                    Array.prototype.slice.call(forms).forEach(function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                })();
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    const link = document.getElementById('more-images-link');
+                    const section = document.getElementById('more-images-section');
+                    const input = document.getElementById('more-images-input');
+                    const previewContainer = document.getElementById('image-preview-container');
+                    const form = document.querySelector('.needs-validation');
+                    
+                    // Store all selected files
+                    let selectedFiles = [];
+                    
+                    // Function to create hidden file inputs for form submission
+                    function createHiddenInputs() {
+                        // Remove any existing hidden file inputs
+                        document.querySelectorAll('.hidden-file-input').forEach(el => el.remove());
+                        
+                        // Create new hidden inputs for each file
+                        selectedFiles.forEach((fileData, index) => {
+                            // Create hidden file input
+                            const fileInput = document.createElement('input');
+                            fileInput.type = 'file';
+                            fileInput.name = `more_images_${index}`;
+                            fileInput.className = 'hidden-file-input';
+                            
+                            // Create a FileList-like object with the file
+                            const dataTransfer = new DataTransfer();
+                            dataTransfer.items.add(fileData.file);
+                            fileInput.files = dataTransfer.files;
+                            
+                            // Add caption as hidden input
+                            const captionInput = document.createElement('input');
+                            captionInput.type = 'hidden';
+                            captionInput.name = `image_caption_${index}`;
+                            captionInput.value = fileData.caption || '';
+                            captionInput.className = 'hidden-file-input';
+                            
+                            form.appendChild(fileInput);
+                            form.appendChild(captionInput);
+                        });
+                    }
+                    
+                    // Function to update previews
+                    function updatePreviews() {
+                        previewContainer.innerHTML = ''; // clear previous previews
+                        
+                        selectedFiles.forEach((fileData, index) => {
+                            const div = document.createElement('div');
+                            div.className = 'preview-item';
+                            div.dataset.index = index;
+                            
+                            // Create preview content wrapper
+                            const contentDiv = document.createElement('div');
+                            contentDiv.className = 'preview-content';
+                            
+                            // Image preview
+                            const img = document.createElement('img');
+                            img.src = fileData.preview;
+                            
+                            // Caption input
+                            const captionInput = document.createElement('input');
+                            captionInput.type = 'text';
+                            captionInput.placeholder = 'عنوان تصویر';
+                            captionInput.value = fileData.caption || '';
+                            captionInput.dataset.index = index;
+                            
+                            // Caption input change handler
+                            captionInput.addEventListener('input', function() {
+                                const idx = parseInt(this.dataset.index);
+                                if (!isNaN(idx) && selectedFiles[idx]) {
+                                    selectedFiles[idx].caption = this.value;
+                                    createHiddenInputs(); // Update hidden inputs with new caption
+                                }
+                            });
+                            
+                            // Remove button
+                            const removeBtn = document.createElement('button');
+                            removeBtn.type = 'button';
+                            removeBtn.className = 'remove-image';
+                            removeBtn.innerHTML = '×';
+                            removeBtn.title = 'حذف تصویر';
+                            
+                            // Add remove functionality
+                            removeBtn.addEventListener('click', function() {
+                                // Remove from array
+                                selectedFiles.splice(index, 1);
+                                // Update previews
+                                updatePreviews();
+                                // Update hidden inputs
+                                createHiddenInputs();
+                            });
+                            
+                            contentDiv.appendChild(img);
+                            contentDiv.appendChild(captionInput);
+                            div.appendChild(contentDiv);
+                            div.appendChild(removeBtn);
+                            
+                            previewContainer.appendChild(div);
+                        });
+                        
+                        // Add counter if there are images
+                        if (selectedFiles.length > 0) {
+                            const counterDiv = document.createElement('div');
+                            counterDiv.className = 'image-counter';
+                            counterDiv.textContent = `${selectedFiles.length} تصویر انتخاب شده`;
+                            previewContainer.appendChild(counterDiv);
+                        }
+                        
+                        // Update hidden inputs whenever previews are updated
+                        createHiddenInputs();
+                    }
+
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if (section.style.display === 'none' || section.style.display === '') {
+                            section.style.display = 'block';
+                            // Trigger fade in
+                            setTimeout(() => {
+                                section.style.opacity = '1';
+                            }, 10);
+                        } else {
+                            section.style.opacity = '0';
+                            // Wait for fade out then hide
+                            setTimeout(() => {
+                                section.style.display = 'none';
+                            }, 400);
+                        }
+                    });
+
+                    input.addEventListener('change', function() {
+                        const newFiles = Array.from(input.files);
+                        
+                        // Create previews for new files and add to selectedFiles array
+                        newFiles.forEach((file) => {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                selectedFiles.push({
+                                    file: file,
+                                    preview: e.target.result,
+                                    caption: ''
+                                });
+                                updatePreviews();
+                            }
+                            reader.readAsDataURL(file);
+                        });
+                        
+                        // Clear input to allow selecting same files again
+                        input.value = '';
+                    });
+                });
+            </script>
+
+        </div>
+    </div>
+</div>
+
+<!-- Back-to-top button Start -->
+<div class="paginacontainer">
+    <div class="progress-wrap bounce">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewbox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+        </svg>
+    </div>
+</div>
+<!-- Back-to-top button End -->
+
+{% endblock %}

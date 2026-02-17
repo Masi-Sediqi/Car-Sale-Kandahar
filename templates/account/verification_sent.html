@@ -1,0 +1,414 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load allauth %}
+
+{% block head_title %}
+    {% trans "Verify Your Email Address" %}
+{% endblock head_title %}
+
+{% block content %}
+<style>
+    /* Hide header and footer */
+    header, footer, .main-header, .site-header, .main-footer, .site-footer {
+        display: none !important;
+    }
+    
+    /* Center the content */
+    body {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    }
+    
+    .verification-wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+    }
+    
+    .verification-box {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(255, 215, 0, 0.15);
+        max-width: 600px;
+        margin: 0 auto;
+        background: #111;
+        border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+    
+    .row {
+        justify-content: center;
+    }
+    
+    .col-lg-8 {
+        flex: 0 0 100%;
+        max-width: 550px;
+        margin: 0 auto;
+    }
+    
+    .verification-content {
+        padding: 50px 40px;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* Decorative elements */
+    .verification-shape-one,
+    .verification-shape-two {
+        position: absolute;
+        opacity: 0.05;
+        pointer-events: none;
+    }
+    
+    .verification-shape-one {
+        top: -50px;
+        left: -50px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+        border-radius: 50%;
+    }
+    
+    .verification-shape-two {
+        bottom: -50px;
+        right: -50px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+        border-radius: 50%;
+    }
+    
+    .verification-icon {
+        margin-bottom: 30px;
+    }
+    
+    .verification-icon svg {
+        width: 80px;
+        height: 80px;
+        color: #ffd700;
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+    }
+    
+    .content-title {
+        margin-bottom: 30px;
+    }
+    
+    .content-title span {
+        color: #ffd700;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: block;
+        margin-bottom: 15px;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+    
+    .content-title h2 {
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0 0 20px;
+        color: #ffd700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        letter-spacing: 1px;
+    }
+    
+    .content-title h2::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #ffd700, transparent);
+        margin: 20px auto 0;
+    }
+    
+    .verification-message {
+        background: rgba(255, 215, 0, 0.05);
+        border: 1px solid rgba(255, 215, 0, 0.2);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .verification-message p {
+        color: #fff;
+        font-size: 16px;
+        line-height: 1.8;
+        margin: 0;
+        opacity: 0.9;
+    }
+    
+    .verification-message strong {
+        color: #ffd700;
+        font-weight: 600;
+    }
+    
+    .info-box {
+        background: rgba(255, 215, 0, 0.03);
+        border-radius: 12px;
+        padding: 25px;
+        margin: 25px 0;
+        text-align: left;
+    }
+    
+    .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        color: #fff;
+    }
+    
+    .info-item:last-child {
+        margin-bottom: 0;
+    }
+    
+    .info-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 215, 0, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+    
+    .info-icon svg {
+        width: 20px;
+        height: 20px;
+        color: #ffd700;
+    }
+    
+    .info-text {
+        flex: 1;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    
+    .info-text strong {
+        color: #ffd700;
+        font-weight: 600;
+    }
+    
+    .action-buttons {
+        margin-top: 35px;
+    }
+    
+    .btn-gold {
+        background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
+        color: #000;
+        border: none;
+        padding: 14px 35px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        text-decoration: none;
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+    }
+    
+    .btn-gold:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        background: linear-gradient(135deg, #ffd700 0%, #daa520 100%);
+        color: #000;
+    }
+    
+    .btn-outline-gold {
+        background: transparent;
+        color: #ffd700;
+        border: 2px solid #ffd700;
+        padding: 12px 30px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        text-decoration: none;
+        margin-left: 15px;
+    }
+    
+    .btn-outline-gold:hover {
+        background: #ffd700;
+        color: #000;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+    }
+    
+    .help-link {
+        margin-top: 30px;
+        padding-top: 25px;
+        border-top: 1px solid rgba(255, 215, 0, 0.2);
+    }
+    
+    .help-link p {
+        color: #999;
+        font-size: 14px;
+        margin: 0;
+    }
+    
+    .help-link a {
+        color: #ffd700;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+    
+    .help-link a:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .verification-content {
+            padding: 40px 25px;
+        }
+        
+        .content-title h2 {
+            font-size: 28px;
+        }
+        
+        .btn-gold, .btn-outline-gold {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
+        
+        .btn-outline-gold {
+            margin-left: 0;
+        }
+        
+        .col-lg-8 {
+            max-width: 100%;
+            padding: 0 20px;
+        }
+        
+        .info-item {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .info-icon {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+    }
+</style>
+
+<!-- Email Verification Section Start -->
+<div class="verification-wrap">
+    <div class="container">
+        <div class="verification-box">
+            <div class="verification-shape-one"></div>
+            <div class="verification-shape-two"></div>
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="verification-content">
+                        <!-- Email Icon -->
+                        <div class="verification-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M3 8L10.5 13.5C11.1667 14 11.8333 14 12.5 13.5L20 8" stroke-linecap="round"/>
+                                <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor"/>
+                                <path d="M22 7L15 12.5M2 7L9 12.5" stroke="currentColor" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="content-title">
+                            <span>{% trans "Email Verification" %}</span>
+                            <h2>{% trans "Verify Your Email Address" %}</h2>
+                        </div>
+                        
+                        <div class="verification-message">
+                            <p>
+                                {% blocktrans %}
+                                We have sent an email to <strong>your email address</strong> for verification. 
+                                Follow the link provided to finalize the signup process.
+                                {% endblocktrans %}
+                            </p>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="M12 16V12M12 8H12.01"/>
+                                    </svg>
+                                </div>
+                                <div class="info-text">
+                                    <strong>{% trans "Check your inbox:" %}</strong> 
+                                    {% trans "Look for an email from us in your main inbox." %}
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="2" width="20" height="20" rx="2.18"/>
+                                        <path d="M7 2L7 5M17 2L17 5M2 9H22"/>
+                                    </svg>
+                                </div>
+                                <div class="info-text">
+                                    <strong>{% trans "Check spam folder:" %}</strong> 
+                                    {% trans "If you don't see it, check your spam/junk folder." %}
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="13" r="4"/>
+                                        <path d="M20 12H22M2 12H4M12 2V4M12 22V20M19.07 4.93L17.66 6.34M6.34 17.66L4.93 19.07M19.07 19.07L17.66 17.66M6.34 6.34L4.93 4.93"/>
+                                    </svg>
+                                </div>
+                                <div class="info-text">
+                                    <strong>{% trans "Still not received?" %}</strong> 
+                                    {% trans "Contact us if you don't receive it within a few minutes." %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <a href="mailto:support@example.com" class="btn-gold">
+                                {% trans "Contact Support" %}
+                            </a>
+                            <a href="{% url 'account_email' %}" class="btn-outline-gold">
+                                {% trans "Resend Email" %}
+                            </a>
+                        </div>
+                        
+                        <div class="help-link">
+                            <p>
+                                {% trans "Need help?" %} 
+                                <a href="{% url 'home:dashboard' %}">{% trans "Return to Home" %}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Email Verification Section End -->
+
+<!-- Back-to-top button Start -->
+<div class="paginacontainer">	
+    <div class="progress-wrap bounce">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewbox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" stroke="#ffd700" stroke-width="4" fill="none"/>
+        </svg>
+    </div>
+</div> 
+<!-- Back-to-top button End -->
+{% endblock content %}
