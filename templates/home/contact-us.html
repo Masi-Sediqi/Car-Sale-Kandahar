@@ -14,6 +14,27 @@
         </div>
     </div>
 </div>
+
+{% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert 
+                {% if message.tags == 'success' %}alert-success
+                {% elif message.tags == 'error' %}alert-danger
+                {% elif message.tags == 'warning' %}alert-warning
+                {% else %}alert-info
+                {% endif %}
+                alert-dismissible fade show shadow-sm"
+                role="alert"
+                style="border-radius:10px;">
+
+                {{ message }}
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 <!-- Breadcrumb End -->
 <!-- Contact Us section Start -->
 <section class="contact-us-wrap ptb-100">

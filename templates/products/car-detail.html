@@ -575,7 +575,7 @@
                             
                             <div class="detail-row">
                                 <span class="detail-label">شماره تماس</span>
-                                <span class="detail-value">{{ car.user.get_full_name|default:car.user.username }}</span>
+                                <span class="detail-value">{{ contact_info.phone_number }}</span>
                             </div>
                         </div>
                         
@@ -594,15 +594,332 @@
                         
                         <!-- Action Buttons -->
                         <div class="action-buttons">
-                            <a href="" class="btn-primary">
-                               <i class="ri-whatsapp-line"></i>
-                               تماس با خریدار از طریق واتساپ
+                            <a href="https://wa.me/{{ contact_info.whatsapp|default:'' }}?text={{ car.title }} - {{ request.build_absolute_uri }}" target="_blank" class="btn-primary">
+                            <i class="ri-whatsapp-line"></i>
+                            تماس با خریدار از طریق واتساپ
                             </a>
-                            <a href="" class="btn-secondary">
-                               <i class="ri-share-line"></i>
+                            <button onclick="document.getElementById('shareModal').showModal()" class="btn-secondary">
+                            <i class="ri-share-line"></i>
                                 اشتراک کردن
-                            </a>
+                            </button>
                         </div>
+
+                        <!-- Share Modal -->
+                        <dialog id="shareModal" class="share-modal">
+                            <div class="share-modal-content">
+                                <div class="share-modal-header">
+                                    <h3>اشتراک گذاری</h3>
+                                    <button class="close-modal" onclick="document.getElementById('shareModal').close()">
+                                        <i class="ri-close-line"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="share-modal-body">
+                                    <p class="share-title">{{ car.title }}</p>
+                                    
+                                    <div class="share-options">
+                                        <!-- Facebook -->
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" 
+                                        target="_blank" 
+                                        class="share-option facebook">
+                                            <i class="ri-facebook-fill"></i>
+                                            <span>فیسبوک</span>
+                                        </a>
+                                        
+                                        <!-- WhatsApp -->
+                                        <a href="https://wa.me/?text={{ car.title }}%20-%20{{ request.build_absolute_uri|urlencode }}" 
+                                        target="_blank" 
+                                        class="share-option whatsapp">
+                                            <i class="ri-whatsapp-line"></i>
+                                            <span>واتساپ</span>
+                                        </a>
+                                        
+                                        <!-- Telegram -->
+                                        <a href="https://t.me/share/url?url={{ request.build_absolute_uri|urlencode }}&text={{ car.title }}" 
+                                        target="_blank" 
+                                        class="share-option telegram">
+                                            <i class="ri-telegram-line"></i>
+                                            <span>تلگرام</span>
+                                        </a>
+                                        
+                                        <!-- Copy Link -->
+                                        <button onclick="copyLink()" class="share-option copy">
+                                            <i class="ri-link"></i>
+                                            <span>کپی لینک</span>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Link Display -->
+                                    <div class="link-display">
+                                        <input type="text" value="{{ request.build_absolute_uri }}" id="shareLink" readonly>
+                                        <button onclick="copyLink()" class="copy-link-btn">
+                                            <i class="ri-file-copy-line"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </dialog>
+
+                        <!-- Add this CSS for the modal -->
+                        <style>
+                            /* Share Modal Styles */
+                            .share-modal {
+                                border: none;
+                                border-radius: 20px;
+                                padding: 0;
+                                max-width: 450px;
+                                width: 90%;
+                                box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+                                font-family: 'Vazirmatn', sans-serif;
+                            }
+
+                            .share-modal::backdrop {
+                                background: rgba(0, 0, 0, 0.5);
+                                backdrop-filter: blur(4px);
+                            }
+
+                            .share-modal-content {
+                                padding: 25px;
+                            }
+
+                            .share-modal-header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 20px;
+                                padding-bottom: 15px;
+                                border-bottom: 1px solid #edf2f7;
+                            }
+
+                            .share-modal-header h3 {
+                                font-size: 20px;
+                                font-weight: 700;
+                                color: #1a2639;
+                                margin: 0;
+                            }
+
+                            .close-modal {
+                                background: none;
+                                border: none;
+                                width: 35px;
+                                height: 35px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                cursor: pointer;
+                                color: #718096;
+                                font-size: 20px;
+                                transition: all 0.3s ease;
+                            }
+
+                            .close-modal:hover {
+                                background: #f7fafc;
+                                color: #ff6b6b;
+                            }
+
+                            .share-title {
+                                color: #4a5568;
+                                font-size: 14px;
+                                margin-bottom: 20px;
+                                padding: 10px;
+                                background: #f7fafc;
+                                border-radius: 10px;
+                                text-align: center;
+                            }
+
+                            .share-options {
+                                display: grid;
+                                grid-template-columns: repeat(2, 1fr);
+                                gap: 10px;
+                                margin-bottom: 20px;
+                            }
+
+                            .share-option {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                padding: 15px;
+                                border-radius: 12px;
+                                text-decoration: none;
+                                color: white;
+                                font-weight: 500;
+                                transition: all 0.3s ease;
+                                border: none;
+                                cursor: pointer;
+                                width: 100%;
+                                font-family: 'Vazirmatn', sans-serif;
+                                font-size: 14px;
+                            }
+
+                            .share-option i {
+                                font-size: 20px;
+                            }
+
+                            .share-option.facebook {
+                                background: #1877f2;
+                            }
+
+                            .share-option.facebook:hover {
+                                background: #0d6bda;
+                                transform: translateY(-2px);
+                            }
+
+                            .share-option.whatsapp {
+                                background: #25D366;
+                            }
+
+                            .share-option.whatsapp:hover {
+                                background: #20b859;
+                                transform: translateY(-2px);
+                            }
+
+                            .share-option.telegram {
+                                background: #0088cc;
+                            }
+
+                            .share-option.telegram:hover {
+                                background: #0077b3;
+                                transform: translateY(-2px);
+                            }
+
+                            .share-option.copy {
+                                background: #718096;
+                            }
+
+                            .share-option.copy:hover {
+                                background: #4a5568;
+                                transform: translateY(-2px);
+                            }
+
+                            .link-display {
+                                display: flex;
+                                gap: 10px;
+                                margin-top: 20px;
+                                padding-top: 20px;
+                                border-top: 1px solid #edf2f7;
+                            }
+
+                            .link-display input {
+                                flex: 1;
+                                padding: 12px 15px;
+                                border: 1px solid #e2e8f0;
+                                border-radius: 10px;
+                                font-family: 'Vazirmatn', sans-serif;
+                                font-size: 13px;
+                                color: #4a5568;
+                                background: #f7fafc;
+                                direction: ltr;
+                                text-align: left;
+                            }
+
+                            .link-display input:focus {
+                                outline: none;
+                                border-color: #ff6b6b;
+                            }
+
+                            .copy-link-btn {
+                                width: 45px;
+                                height: 45px;
+                                border: 1px solid #e2e8f0;
+                                border-radius: 10px;
+                                background: white;
+                                color: #718096;
+                                cursor: pointer;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                transition: all 0.3s ease;
+                                font-size: 18px;
+                            }
+
+                            .copy-link-btn:hover {
+                                background: #ff6b6b;
+                                border-color: #ff6b6b;
+                                color: white;
+                            }
+
+                            /* Toast notification */
+                            .toast-notification {
+                                position: fixed;
+                                bottom: 20px;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                background: #1a2639;
+                                color: white;
+                                padding: 12px 25px;
+                                border-radius: 30px;
+                                font-size: 14px;
+                                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                                z-index: 10000;
+                                animation: slideUp 0.3s ease;
+                            }
+
+                            @keyframes slideUp {
+                                from {
+                                    opacity: 0;
+                                    transform: translate(-50%, 20px);
+                                }
+                                to {
+                                    opacity: 1;
+                                    transform: translate(-50%, 0);
+                                }
+                            }
+
+                            /* Responsive */
+                            @media (max-width: 480px) {
+                                .share-options {
+                                    grid-template-columns: 1fr;
+                                }
+                                
+                                .share-modal-content {
+                                    padding: 20px;
+                                }
+                            }
+                        </style>
+
+                        <script>
+                        function copyLink() {
+                            // Get the link input
+                            const linkInput = document.getElementById('shareLink');
+                            
+                            // Select the text
+                            linkInput.select();
+                            linkInput.setSelectionRange(0, 99999); // For mobile devices
+                            
+                            // Copy the text
+                            document.execCommand('copy');
+                            
+                            // Show toast notification
+                            showToast('لینک با موفقیت کپی شد!');
+                            
+                            // Deselect the input
+                            linkInput.blur();
+                        }
+
+                        function showToast(message) {
+                            // Create toast element
+                            const toast = document.createElement('div');
+                            toast.className = 'toast-notification';
+                            toast.textContent = message;
+                            
+                            // Add to body
+                            document.body.appendChild(toast);
+                            
+                            // Remove after 3 seconds
+                            setTimeout(() => {
+                                toast.remove();
+                            }, 3000);
+                        }
+
+                        // Close modal when clicking outside (optional - modern browsers do this automatically)
+                        document.addEventListener('click', function(event) {
+                            const modal = document.getElementById('shareModal');
+                            if (event.target === modal) {
+                                modal.close();
+                            }
+                        });
+                        </script>
 
                     </div>
                 </div>
@@ -743,96 +1060,6 @@ document.addEventListener('keydown', function(e) {
 });
 </script>
 <!-- Product Details section end -->
-
-<!-- Product Section Start -->
-<div class="product-wrap ptb-100">
-    <div class="container">
-        <div class="section-title-two text-center mb-30">
-            <h3>Related Products</h3>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="product-card-three">
-                    <div class="product-img">
-                        <img src="{% static 'assets/img/product/product-15.webp' %}" alt="Image">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-cat-wrap">
-                            <a href="listings.html" class="product-category">Crossover</a>
-                            <div class="product-price">Price: $62000</div>
-                        </div>
-                        <h3><a href="listing-details.html">Audi Trone Electric Sport</a></h3>
-                        <p class="product-address"><i class="flaticon-placeholder"></i> 64, 1st Aveneu, High Steet, UK
-                        </p>
-                        <ul class="product-amenity list-style">
-                            <li><i class="flaticon-settings"></i> Autometic</li>
-                            <li><i class="flaticon-gas-station"></i>FWD</li>
-                            <li><i class="flaticon-speedometer"></i>1300(Mi)</li>
-                        </ul>
-                        <div class="product-action-two">
-                            <a href="listing-details.html" class="btn-one">Add To Cart</a>
-                            <a href="wishlist.html" class="add-to-wishlist"><i class="flaticon-heart"></i></a>
-                            <a href="compare.html" class="add-to-wishlist"><i class="flaticon-compare"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="product-card-three">
-                    <div class="product-img">
-                        <img src="{% static 'assets/img/product/product-16.webp' %}" alt="Image">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-cat-wrap">
-                            <a href="listings.html" class="product-category">Convertible</a>
-                            <div class="product-price">Price: $54000</div>
-                        </div>
-                        <h3><a href="listing-details.html">BMW Electric Model i4</a></h3>
-                        <p class="product-address"><i class="flaticon-placeholder"></i> 2276 Hall Place, Texas, USA</p>
-                        <ul class="product-amenity list-style">
-                            <li><i class="flaticon-settings"></i> Autometic</li>
-                            <li><i class="flaticon-gas-station"></i>FWD</li>
-                            <li><i class="flaticon-speedometer"></i>1300(Mi)</li>
-                        </ul>
-                        <div class="product-action-two">
-                            <a href="listing-details.html" class="btn-one">Add To Cart</a>
-                            <a href="wishlist.html" class="add-to-wishlist"><i class="flaticon-heart"></i></a>
-                            <a href="compare.html" class="add-to-wishlist"><i class="flaticon-compare"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="product-card-three">
-                    <div class="product-img">
-                        <img src="{% static 'assets/img/product/product-17.webp' %}" alt="Image">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-cat-wrap">
-                            <a href="listings.html" class="product-category">Wagon</a>
-                            <div class="product-price">Price: $67000</div>
-                        </div>
-                        <h3><a href="listing-details.html">New 2022 Lexus RC4</a></h3>
-                        <p class="product-address"><i class="flaticon-placeholder"></i>47 Bt. Brothers Road, Nt. Street,
-                            USA</p>
-                        <ul class="product-amenity list-style">
-                            <li><i class="flaticon-settings"></i> Autometic</li>
-                            <li><i class="flaticon-gas-station"></i>FWD</li>
-                            <li><i class="flaticon-speedometer"></i>1300(Mi)</li>
-                        </ul>
-                        <div class="product-action-two">
-                            <a href="listing-details.html" class="btn-one">Add To Cart</a>
-                            <a href="wishlist.html" class="add-to-wishlist"><i class="flaticon-heart"></i></a>
-                            <a href="compare.html" class="add-to-wishlist"><i class="flaticon-compare"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Product Section End -->
-
 
 <div class="paginacontainer">
     <div class="progress-wrap bounce">

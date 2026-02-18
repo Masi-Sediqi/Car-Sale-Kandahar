@@ -7,9 +7,8 @@ class NewCar(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=255)
-    is_activated = models.BooleanField(default=True)
+    is_activated = models.BooleanField(default=False)
     
-    brand_model = models.CharField(max_length=255)
     year_of_manufacture = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=12, decimal_places=2)
     
@@ -36,7 +35,7 @@ class NewCar(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.title} - {self.brand_model}"
+        return f"{self.title} - {self.mileage_km}"
     
 class NewCarImage(models.Model):
     car = models.ForeignKey(NewCar, on_delete=models.CASCADE, related_name='images')

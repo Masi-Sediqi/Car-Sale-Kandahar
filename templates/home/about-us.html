@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap bg-f br-1">
+    <div class="container">
+        <div class="breadcrumb-title">
+            <h2>درباره ما</h2>
+            <ul class="breadcrumb-menu list-style">
+                <li><a href="/">داشبورد </a></li>
+                <li>درباره ما</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- About Section Start -->
+<section class="about-wrap ptb-100 bg_ash" style="font-family: 'Vazirmatn', sans-serif;">
+    <div class="container">
+        <div class="row align-items-center gx-5">
+            <div class="col-lg-6">
+                <div class="about-img-wrap">
+                    <img src="{{ about_us.main_image.url }}" alt="Image" class="about-img-one">
+                    <div class="about-promo-box">
+                        <img src="{% static 'assets/img/icon/about-icon.svg' %}" alt="Image">
+                        <h2><span>{{ about_us.experniance }}+</span>سال تجربه</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-content">
+                    <div class="content-title-two">
+                        <span>{{ about_us.title }}</span>
+                        <h2>{{ about_us.subtitle }}.</p>
+                    </div>
+                    <div class="progressbar-wrap">
+                    <div class="progress-bar" data-percentage="85%">
+                        <h4 class="progress-title-holder clearfix">
+                            <span class="progress-title">امنیت بالا</span>
+                            <span class="progress-number-wrapper">
+                                <span class="progress-number-mark">
+                                    <span class="percent"></span>
+                                </span>
+                            </span>
+                        </h4>
+                        <div class="progress-content-outter">
+                            <div class="progress-content"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar" data-percentage="72%">
+                        <h4 class="progress-title-holder clearfix">
+                            <span class="progress-title">نمایندگان مورد اعتماد</span>
+                            <span class="progress-number-wrapper">
+                                <span class="progress-number-mark">
+                                    <span class="percent"></span>
+                                </span>
+                            </span>
+                        </h4>
+                        <div class="progress-content-outter">
+                            <div class="progress-content"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar" data-percentage="80%">
+                        <h4 class="progress-title-holder clearfix">
+                            <span class="progress-title">پشتیبانی رایگان</span>
+                            <span class="progress-number-wrapper">
+                                <span class="progress-number-mark">
+                                    <span class="percent"></span>
+                                </span>
+                            </span>
+                        </h4>
+                        <div class="progress-content-outter">
+                            <div class="progress-content"></div>
+                        </div>
+                    </div>
+                </div>
+
+                    <a href="about.html" class="btn-two">بیشتر بدانید</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About Section End -->
+
+<!-- Testimonial Section Start -->
+<div class="testimonial-wrap ptb-100 bg_ash" style="font-family: 'Vazirmatn', sans-serif;">
+    <div class="container">
+        <div class="section-title-two text-center mb-30">
+            <h2>نظرات مشتریان ما</h2>
+        </div>
+        <div class="testimonial-slider-three owl-carousel">
+            {% for message in messages %}
+                <div class="testimonial-card-three">
+                    <div class="client-info-wrap">
+                        <div class="client-img">
+                            <img src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?semt=ais_user_personalization&w=740&q=80" alt="Image">
+                        </div>
+                        <div class="client-info">
+                            <h3>{{ message.name }}</h3>
+                            <span>{{ message.subject }}</span>
+                        </div>
+                    </div>
+                    <p class="client-quote"> {{ message.message }} </p>
+                    <ul class="ratings list-style">
+                        <li><i class="ri-star-fill"></i></li>
+                        <li><i class="ri-star-fill"></i></li>
+                        <li><i class="ri-star-fill"></i></li>
+                        <li><i class="ri-star-fill"></i></li>
+                        <li><i class="ri-star-fill"></i></li>
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Testimonial Section End -->
+
+<!-- Back-to-top button Start -->
+<div class="paginacontainer">
+    <div class="progress-wrap bounce">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewbox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+        </svg>
+    </div>
+</div>
+<!-- Back-to-top button End -->
+
+{% endblock %}

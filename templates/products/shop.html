@@ -1,0 +1,344 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="body_overlay"></div>
+
+<!-- Product Section Start -->
+<div class="product-wrap pt-100 pb-70" style="font-family: 'Vazirmatn', sans-serif;">
+    <div class="container">
+        <div class="section-title-one text-center mb-40">
+            {% if query %}
+                <span>نتایج جستجو</span>
+                <h2>نتایج برای "{{ query }}"</h2>
+            {% else %}
+                <span>جدیدترین‌ها</span>
+                <h2>بهترین موتر مناسب شما را پیدا کنید</h2>
+            {% endif %}
+        </div>
+
+
+        <!-- Search Section -->
+        <div class="search-section mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="search-container">
+                        <form action="" method="GET" class="search-form">
+                            <div class="search-wrapper">
+                                <input type="text" 
+                                       name="q" 
+                                       class="search-input" 
+                                       placeholder="جستجوی موتر بر اساس نام، مدل، سال..." 
+                                       aria-label="جستجو">
+                                <button type="submit" class="search-btn">
+                                    <i class="flaticon-search"></i>
+                                    جستجو
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            {% for car in cars %}
+                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="product-card-one h-100">
+                        <div class="product-img">
+                            {% if car.main_image %}
+                                <img src="{{ car.main_image.url }}" 
+                                    alt="{{ car.title }}" 
+                                    class="img-fluid" 
+                                    style="width: 100%; height: 200px; object-fit: cover;">
+                            {% else %}
+                                <img src="{% static 'images/default-car.jpg' %}" 
+                                    alt="No Image" 
+                                    class="img-fluid" 
+                                    style="width: 100%; height: 200px; object-fit: cover;">
+                            {% endif %}
+                            <ul class="product-option list-style">
+                                <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
+                                <li><a href="compare.html"><i class="flaticon-compare"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="product-info">
+                            <h5><a href="{% url 'products:car_detail' car.id %}" title="{{ car.title }}"> {{ car.title|truncatechars:22 }}</a></h5>
+                            <h5 class="product-price">قیمت: {{ car.price|floatformat:0 }} </h5>
+                            <ul class="product-amenity list-style">
+                                <li>گیربکس <span>{{ car.get_gearbox_type_display }}</span></li>
+                                <li>سوخت <span>{{ car.get_fuel_type_display }}</span></li>
+                                <li>سال ساخت<span>{{ car.year_of_manufacture }}</span></li>
+                            </ul>
+                            <a href="{% url 'products:car_detail' car.id %}" class="btn-one">جزئیات</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center py-5">
+                    <p>هیچ خودرویی یافت نشد</p>
+                </div>
+            {% endfor %}
+        </div>
+    
+    </div>
+</div>
+<!-- Product Section End -->
+
+<style>
+/* Search Section Styles */
+.search-section {
+    padding: 20px 0;
+    border-top: 2px solid #f0f0f0;
+    margin-top: 40px !important;
+}
+
+.search-container {
+    background: #ffffff;
+    border-radius: 60px;
+    padding: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    border: 1px solid #e5e5e5;
+    transition: all 0.3s ease;
+}
+
+.search-container:hover,
+.search-container:focus-within {
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15);
+    border-color: #FFD700;
+}
+
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    border-radius: 60px;
+    padding: 5px;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-family: 'Vazirmatn', sans-serif;
+    background: transparent;
+    border-radius: 60px;
+    outline: none;
+    color: #333;
+    direction: rtl;
+}
+
+.search-input::placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+.search-btn {
+    background: #000000;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    padding: 12px 35px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Vazirmatn', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.search-btn:hover {
+    background: #FFD700;
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.search-btn i {
+    font-size: 18px;
+}
+
+/* Quick Filters */
+.quick-filters {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-text {
+    color: #666;
+    font-size: 14px;
+}
+
+.filter-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 5px 15px;
+    border-radius: 30px;
+    background: #f5f5f5;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.filter-link:hover {
+    background: #000000;
+    color: #FFD700;
+    border-color: #FFD700;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .search-wrapper {
+        flex-direction: column;
+        background: transparent;
+    }
+    
+    .search-container {
+        border-radius: 30px;
+    }
+    
+    .search-input {
+        width: 100%;
+        border: 2px solid #f0f0f0;
+        margin-bottom: 10px;
+    }
+    
+    .search-btn {
+        width: 100%;
+    }
+    
+    .quick-filters {
+        gap: 10px;
+    }
+    
+    .filter-link {
+        padding: 4px 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .quick-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-link {
+        text-align: center;
+    }
+}
+
+/* Animation for search section */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-section {
+    animation: slideUp 0.6s ease forwards;
+}
+
+/* Product card enhancements */
+.product-card-one {
+    transition: all 0.3s ease;
+}
+
+.product-card-one:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.product-img {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-img img {
+    transition: transform 0.5s ease;
+}
+
+.product-card-one:hover .product-img img {
+    transform: scale(1.05);
+}
+
+.product-option {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.product-card-one:hover .product-option {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-option li a {
+    background: rgba(255,255,255,0.9);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.product-option li a:hover {
+    background: #000000;
+    color: #FFD700;
+}
+
+.btn-one {
+    background: #000000;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    padding: 10px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-one:hover {
+    background: #FFD700;
+    color: #000000;
+    transform: translateY(-2px);
+}
+</style>
+
+<!-- Back-to-top button Start -->
+<div class="paginacontainer">
+    <div class="progress-wrap bounce">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewbox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+        </svg>
+    </div>
+</div>
+<!-- Back-to-top button End -->
+
+{% endblock %}

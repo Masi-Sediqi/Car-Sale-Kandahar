@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.contrib import messages
+from django.db.models import Q, Case, When, Value, IntegerField
 # Create your views here.
 
 def add_listing(request):
@@ -78,3 +79,44 @@ def delete_car(request, id):
 def car_detail(request, id):
     car = get_object_or_404(NewCar.objects.prefetch_related('images'), id=id)
     return render(request, 'products/car-detail.html', {'car': car})
+
+
+def shop(request):
+    query = request.GET.get('q', '').strip()
+
+    cars = NewCar.objects.filter(is_activated=True)
+
+    if query:
+        # Annotate priority for ordering: exact title or description first
+        cars = cars.annotate(
+            priority=Case(
+                When(title__iexact=query, then=Value(1)),          # exact title match -> highest
+                When(description__iexact=query, then=Value(1)),    # exact description match -> highest
+                When(title__icontains=query, then=Value(2)),       # partial title match -> medium
+                When(description__icontains=query, then=Value(2)), # partial description match -> medium
+                When(year_of_manufacture__icontains=query, then=Value(3)),
+                When(fuel_type__icontains=query, then=Value(3)),
+                When(gearbox_type__icontains=query, then=Value(3)),
+                When(price__icontains=query, then=Value(3)),
+                When(mileage_km__icontains=query, then=Value(3)),
+                default=Value(4),  # everything else
+                output_field=IntegerField()
+            )
+        ).filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(year_of_manufacture__icontains=query) |
+            Q(fuel_type__icontains=query) |
+            Q(gearbox_type__icontains=query) |
+            Q(price__icontains=query) |
+            Q(mileage_km__icontains=query)
+        ).order_by('priority', '-created_at')  # first priority, then newest
+
+    else:
+        cars = cars.order_by('-created_at')
+
+    context = {
+        'cars': cars,
+        'query': query,
+    }
+    return render(request, 'products/shop.html', context)

@@ -102,7 +102,7 @@
                                     صفحه اصلی
                                 </a>
                             </li>
-                            <li class="nav-item has-child">
+                            <!-- <li class="nav-item has-child">
                                 <a href="#" class="nav-link">
                                     موجودی
                                     <i class="flaticon-down-arrow"></i>
@@ -115,8 +115,8 @@
                                         <a href="inventory-details.html" class="nav-link">جزئیات موجودی</a>
                                     </li>
                                 </ul>
-                            </li>
-                            <li class="nav-item has-child">
+                            </li> -->
+                            <!-- <li class="nav-item has-child">
                                 <a href="#" class="nav-link">
                                     صفحات
                                     <i class="flaticon-down-arrow"></i>
@@ -195,77 +195,16 @@
                                         <a href="error-404.html" class="nav-link">صفحه خطای ۴۰۴</a>
                                     </li>
                                 </ul>
-                            </li>
-                            <li class="nav-item has-child">
-                                <a href="#" class="nav-link">
-                                    فروشگاه
-                                    <i class="flaticon-down-arrow"></i>
+                            </li> -->
+                            <li class="nav-item">
+                                <a href="{% url 'products:shop' %}" class="nav-link">
+                                    موتر ها
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="shop.html" class="nav-link">فروشگاه</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="shop-details.html" class="nav-link">جزئیات فروشگاه</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="wishlist.html" class="nav-link">لیست علاقه‌مندی‌ها</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="cart.html" class="nav-link">سبد خرید</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="checkout.html" class="nav-link">تسویه حساب</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="Compare.html" class="nav-link">مقایسه</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="my-account.html" class="nav-link">حساب کاربری من</a>
-                                    </li>
-                                </ul>
                             </li>
-                            <li class="nav-item has-child">
-                                <a href="#" class="nav-link">
-                                    وبلاگ
-                                    <i class="flaticon-down-arrow"></i>
+                            <li class="nav-item">
+                                <a href="{% url 'home:about_us' %}" class="nav-link">
+                                    درباره ما
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            طرح وبلاگ
-                                            <i class="ri-arrow-right-s-line"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="blog-no-sidebar.html" class="nav-link">شبکه وبلاگ</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="blog-left-sidebar.html" class="nav-link">وبلاگ با سایدبار چپ</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="blog-right-sidebar.html" class="nav-link">وبلاگ با سایدبار راست</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            پست تکی
-                                            <i class="ri-arrow-right-s-line"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="blog-details-no-sidebar.html" class="nav-link">جزئیات وبلاگ بدون سایدبار</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="blog-details-left-sidebar.html" class="nav-link">جزئیات وبلاگ با سایدبار چپ</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="blog-details-right-sidebar.html" class="nav-link">جزئیات وبلاگ با سایدبار راست</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'home:contact_us' %}" class="nav-link">تماس</a>
@@ -294,7 +233,7 @@
                                 <a href="{% url 'products:add_listing' %}" class="btn-two">افزودن لیست</a>
                             </div>
                             <div class="option-item">
-                                <button class="sidebar-btn"><i class="flaticon-menu"></i></button>
+                                <button class="sidebar-btn"><i class="flaticon-search"></i></button>
                             </div>
                         </div>
                     </div>
@@ -302,7 +241,7 @@
                 <div class="mobile-bar-wrap">
                     <a href="compare.html" class="compare-btn d-lg-none"><i class="flaticon-compare"></i><span class="cart-count">۱۰</span></a>
                     <a class="shopcart  d-lg-none" href="cart.html"><i class="flaticon-shopping-bag-1"></i><span class="cart-count">۱</span></a>
-                    <button class="sidebar-btn  d-lg-none"><i class="flaticon-menu"></i></button>
+                    <button class="sidebar-btn  d-lg-none"><i class="flaticon-search"></i></button>
                     <div class="mobile-menu d-lg-none">
                         <a href="javascript:void(0)"><i class="ri-menu-line"></i></a>
                     </div>
@@ -315,49 +254,77 @@
             <button type="button" class="close-popup"> <i class="ri-close-fill"></i> </button>
             <div class="comp-logo">
                 <a href="/"> 
-                    <img src="{% static 'assets/img/logo-white.webp' %}" alt="Image">
+                    <img src="{% static 'assets/img/no.png' %}" alt="Image">
                 </a>
             </div>
-            <p class="comp-desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می‌باشد.</p>
-            <ul class="contact-box list-style">
-                <li>
-                    <b>آدرس:</b>
-                    <p>خیابان بیکری ۲۳، لندن، انگلستان</p>
-                </li>
-                <li>
-                    <b>تلفن:</b>
-                    <a href="tel:87896744455">۸۷۸-۹۶۷۴-۴۴۵۵</a>
-                </li>
-                <li>
-                    <b>ایمیل:</b>
-                    <a href="/cdn-cgi/l/email-protection#97fff2fbfbf8d7faf8e3f8edb9f4f8fa"><span class="__cf_email__" data-cfemail="224a474e4e4d624f4d564d580c414d4f">[ایمیل&#160;محافظت‌شده]</span></a>
-                </li>
-            </ul>
-            <ul class="social-profile list-style">
-                <li>
-                    <a target="_blank" href="https://facebook.com">
-                        <i class="ri-facebook-line"></i>
-                    </a>
-                </li>
-                <li>
-                    <a target="_blank" href="https://twitter.com">
-                        <i class="ri-twitter-line"></i>
-                    </a>
-                </li>
-                <li>
-                    <a target="_blank" href="https://linkedin.com">
-                        <i class="ri-linkedin-line"></i>
-                    </a>
-                </li>
-                <li>
-                    <a target="_blank" href="https://instagram.com">
-                        <i class="ri-instagram-line"></i>
-                    </a>
-                </li>
-            </ul>
-            <div class="comp-map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8385385572983!2d144.95358331584498!3d-37.81725074201705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4dd5a05d97%3A0x3e64f855a564844d!2s121%20King%20St%2C%20Melbourne%20VIC%203000%2C%20Australia!5e0!3m2!1sen!2sbd!4v1612419490850!5m2!1sen!2sbd"></iframe>
-            </div>
+            <form action="{% url 'products:shop' %}" method="GET" class="search-form">
+                <div class="search-wrapper">
+                    <i class="flaticon-search search-icon"></i>
+                    <input type="text"
+                        name="q"
+                        class="search-input"
+                        placeholder="جستجوی موتر..."
+                        aria-label="جستجو">
+                    <button type="submit" class="search-btn">جستجو</button>
+                </div>
+            </form>
+
+<style>.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 30px;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+}
+
+/* افکت هنگام فوکس */
+.search-wrapper:focus-within {
+    border-color: #fff;
+    box-shadow: 0 0 8px rgba(255,255,255,0.4);
+}
+
+/* آیکن سرچ */
+.search-icon {
+    position: absolute;
+    right: 15px;
+    color: #fff;
+    font-size: 18px;
+}
+
+/* اینپوت */
+.search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 10px 40px 10px 10px;
+    color: #fff;
+}
+
+/* placeholder سفید */
+.search-input::placeholder {
+    color: #eee;
+}
+
+/* دکمه */
+.search-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.search-btn:hover {
+    background: #f1f1f1;
+}
+</style>
         </div>
     </div>
     <!-- Header Section End -->  

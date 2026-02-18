@@ -5,7 +5,7 @@
 <div class="body_overlay"></div>
 
 <!-- Hero Section Start -->
-<div class="hero-wrap hero-one">
+<div class="hero-wrap hero-one" style="font-family: 'Vazirmatn', sans-serif;">
     <img src="{% static 'assets/img/hero/hero-shape-1.webp' %}" alt="Image" class="hero-shape-one bounce">
     <img src="{% static 'assets/img/hero/hero-shape-2.webp' %}" alt="Image" class="hero-shape-two moveHorizontal">
     <img src="{% static 'assets/img/hero/hero-shape-3.webp' %}" alt="Image" class="hero-shape-three animationFramesTwo">
@@ -13,811 +13,199 @@
     <img src="{% static 'assets/img/hero/hero-bg-shape.webp' %}" alt="Image" class="hero-bg-shape">
     <div class="container-fluid">
         <div class="hero-slider-one owl-carousel">
-            <div class="hero-slide-item">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-xxl-5 col-xl-6 col-lg-6">
-                        <div class="hero-content">
-                            <span>$128,000</span>
-                            <h1>Vovlo V40R 2014 Last Serie</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod cste dolore magnam
-                                aliquam quaerat demi text voluptatem dolore amet magna aliqua.</p>
-                            <div class="hero-btn">
-                                <a href="about.html" class="btn-two">About Us</a>
-                                <a href="listing-details.html" class="btn-three">Read More</a>
+            {% for slide in hero_slider %}
+                <div class="hero-slide-item">
+                    <div class="row gx-5 align-items-center">
+                        <div class="col-xxl-5 col-xl-6 col-lg-6">
+                            <div class="hero-content">
+                                <h1>{{ slide.title }}</h1>
+                                <p>{{ slide.description }}.</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xxl-7 col-xl-6 col-lg-6">
-                        <div class="hero-img-wrap">
-                            <div class="hero-promo-box">
-                                <div class="hero-promo-img">
-                                    <img src="{% static 'assets/img/hero/hero-thumb-1.webp' %}" alt="Image">
-                                </div>
-                                <div class="hero-promo-info">
-                                    <h3><a href="listing-details.html">Lamborghini Urus</a></h3>
-                                    <div class="hero-promo-metainfo">
-                                        <ul class="ratings list-style">
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                        </ul>
-                                        <p class="product-price">$12000</p>
-                                    </div>
-                                </div>
+                        <div class="col-xxl-7 col-xl-6 col-lg-6">
+                            <div class="hero-img-wrap">
+                                <img class="hero-img" src="{{ slide.image.url }}" alt="Image">
                             </div>
-                            <img class="hero-img" src="{% static 'assets/img/hero/hero-img-1.webp' %}" alt="Image">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="hero-slide-item">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-xxl-5 col-xl-6 col-lg-6">
-                        <div class="hero-content">
-                            <span>2022</span>
-                            <h1>New BMW 5 Serie $520/Month</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod cste dolore magnam
-                                aliquam quaerat demi text voluptatem dolore amet magna aliqua.</p>
-                            <div class="hero-btn">
-                                <a href="about.html" class="btn-two">About Us</a>
-                                <a href="listing-details.html" class="btn-three">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-7 col-xl-6 col-lg-6">
-                        <div class="hero-img-wrap">
-                            <div class="hero-promo-box">
-                                <div class="hero-promo-img">
-                                    <img src="{% static 'assets/img/hero/hero-thumb-2.webp' %}" alt="Image">
-                                </div>
-                                <div class="hero-promo-info">
-                                    <h3><a href="listing-details.html">Mercedes Benz</a></h3>
-                                    <div class="hero-promo-metainfo">
-                                        <ul class="ratings list-style">
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                        </ul>
-                                        <p class="product-price">$14000</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <img class="hero-img" src="{% static 'assets/img/hero/hero-img-2.webp' %}" alt="Image">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-slide-item">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-xxl-5 col-xl-6 col-lg-6">
-                        <div class="hero-content">
-                            <span>2017</span>
-                            <h1>Old Nissan 4 Serie $310/Month</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod cste dolore magnam
-                                aliquam quaerat demi text voluptatem dolore amet magna aliqua.</p>
-                            <div class="hero-btn">
-                                <a href="about.html" class="btn-two">About Us</a>
-                                <a href="listing-details.html" class="btn-three">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-7 col-xl-6 col-lg-6">
-                        <div class="hero-img-wrap">
-                            <div class="hero-promo-box">
-                                <div class="hero-promo-img">
-                                    <img src="{% static 'assets/img/hero/hero-thumb-3.webp' %}" alt="Image">
-                                </div>
-                                <div class="hero-promo-info">
-                                    <h3><a href="listing-details.html">Tesla Roadster</a></h3>
-                                    <div class="hero-promo-metainfo">
-                                        <ul class="ratings list-style">
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                            <li><i class="ri-star-fill"></i></li>
-                                        </ul>
-                                        <p class="product-price">$52000</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <img class="hero-img" src="{% static 'assets/img/hero/hero-img-3.webp' %}" alt="Image">
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <div id="hero-slide-counter"></div>
     </div>
 </div>
 <!-- Hero Section End -->
 
-<!-- Filter Product Section Start -->
-<div class="filter-product-wrap-one bg_secondary">
-    <img src="{% static 'assets/img/shape-1.webp' %}" alt="Image" class="filter-shape-one moveHorizontal">
-    <div class="container">
-        <div class="filter-product-title">
-            <div class="row align-items-center">
-                <div class="col-md-7">
-                    <div class="content-title-one">
-                        <h4>Welcome To Motoz Car Dealer</h4>
-                    </div>
-                </div>
-                <div class="col-md-5 text-md-end">
-                    <p class="filter-result"><i class="flaticon-drive"></i> 80 Cars Available</p>
-                </div>
-            </div>
-        </div>
-        <form action="#" class="filter-product-one">
-            <div class="row">
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="form-group">
-                        <label for="car_make">Car Make</label>
-                        <select name="car_make" id="car_make">
-                            <option value="0">Select Car Make</option>
-                            <option value="1">Audi</option>
-                            <option value="2">BMW</option>
-                            <option value="3">Voxwagon</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="form-group">
-                        <label for="car_model">Car Model</label>
-                        <select name="car_model" id="car_model">
-                            <option value="0">Select Car Model</option>
-                            <option value="1">N Series</option>
-                            <option value="2">S Series</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="form-group">
-                        <label for="car_year">Select Year</label>
-                        <select name="car_year" id="car_year">
-                            <option value="0">Select Car Year</option>
-                            <option value="1">2022</option>
-                            <option value="2">2021</option>
-                            <option value="3">2020</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="form-group">
-                        <label for="car_condition">Car Condition</label>
-                        <select name="car_condition" id="car_condition">
-                            <option value="0">Select Car Condition</option>
-                            <option value="1">New</option>
-                            <option value="2">Refubrished</option>
-                            <option value="3">Resale</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="form-group">
-                        <label for="car_offer">Offer Type</label>
-                        <select name="car_offer" id="car_offer">
-                            <option value="0">Select Offer Type</option>
-                            <option value="1">Discount Offer</option>
-                            <option value="2">Promotional Offer</option>
-                            <option value="3">Rental Offer</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="form-group">
-                        <label for="car_price">Select Price</label>
-                        <select name="car_price" id="car_price">
-                            <option value="0">Select Price</option>
-                            <option value="1">$1000 - $5000</option>
-                            <option value="1">$5000 - $10000</option>
-                            <option value="1">$10000 - $20000</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="form-group">
-                        <label for="car_milieage">Select Max Milieage</label>
-                        <select name="car_milieage" id="car_milieage">
-                            <option value="0">Select Max Milieage</option>
-                            <option value="1">2000 Miles</option>
-                            <option value="1">3000 Miles</option>
-                            <option value="1">4000 Miles</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="form-group">
-                        <button type="submit" class="btn-two d-block w-100">Search Now</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- Filter Product Section End -->
-
 <!-- Product Section Start -->
-<div class="product-wrap pt-100 pb-70">
+<div class="product-wrap pt-100 pb-70" style="font-family: 'Vazirmatn', sans-serif;">
     <div class="container">
         <div class="section-title-one text-center mb-40">
-            <span>New Arrivals</span>
-            <h2>Find The Best Car For You</h2>
+            <span>جدیدترین‌ها</span>
+            <h2>بهترین موتر مناسب شما را پیدا کنید</h2>
         </div>
         <div class="row justify-content-center">
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="200">
-                <div class="product-card-one">
-                    <div class="product-img">
-                        <img src="{% static 'assets/img/product/product-1.webp' %}" alt="Image">
-                        <ul class="product-option list-style">
-                            <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
-                            <li><a href="compare.html"><i class="flaticon-compare"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-ratings">
-                            <ul class="list-style">
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
+            {% for car in cars %}
+                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
+                    data-aos-delay="200">
+                    <div class="product-card-one">
+                        <div class="product-img">
+                            {% if car.main_image %}
+                                <img src="{{ car.main_image.url }}" 
+                                    alt="{{ car.title }}" 
+                                    class="img-fluid" 
+                                    style="width: 100%; height: 210px; object-fit: cover;">
+                            {% else %}
+                                <img src="{% static 'images/default-car.jpg' %}" 
+                                    alt="No Image" 
+                                    class="img-fluid" 
+                                    style="width: 100%; height: 210px; object-fit: cover;">
+                            {% endif %}
+                            <ul class="product-option list-style">
+                                <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
+                                <li><a href="compare.html"><i class="flaticon-compare"></i></a></li>
                             </ul>
-                            <span>(4k+ Ratings)</span>
                         </div>
-                        <h3><a href="listing-details.html">Audi Trone Electric Sport</a></h3>
-                        <div class="product-price">Price: $62000</div>
-                        <ul class="product-amenity list-style">
-                            <li>Transmission <span>Autometic</span></li>
-                            <li>Drive <span>4WD</span></li>
-                            <li>Mileage<span>1500 (Mi)</span></li>
-                        </ul>
-                        <a href="listing-details.html" class="btn-one">View Details</a>
+                        <div class="product-info">
+                            <h3><a href="{% url 'products:car_detail' car.id %}" title="{{ car.title }}"> {{ car.title|truncatechars:22 }}</a></h3>
+                            <div class="product-price">قیمت: {{ car.price }}</div>
+                            <ul class="product-amenity list-style">
+                                <li>گیربکس <span>{{ car.get_gearbox_type_display }}</span></li>
+                                <li>سوخت <span>{{ car.get_fuel_type_display }}</span></li>
+                                <li>سال ساخت<span>{{ car.year_of_manufacture }}</span></li>
+                            </ul>
+                            <a href="{% url 'products:car_detail' car.id %}" class="btn-one">جزئیات</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="300">
-                <div class="product-card-one">
-                    <div class="product-img">
-                        <img src="{% static 'assets/img/product/product-2.webp' %}" alt="Image">
-                        <ul class="product-option list-style">
-                            <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
-                            <li><a href="compare.html"><i class="flaticon-compare"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-ratings">
-                            <ul class="list-style">
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                            </ul>
-                            <span>(3k+ Ratings)</span>
-                        </div>
-                        <h3><a href="listing-details.html">BMW Electric Model i4</a></h3>
-                        <div class="product-price">Price: $62000</div>
-                        <ul class="product-amenity list-style">
-                            <li>Transmission <span>Autometic</span></li>
-                            <li>Drive <span>4WD</span></li>
-                            <li>Mileage<span>1500 (Mi)</span></li>
-                        </ul>
-                        <a href="listing-details.html" class="btn-one">View Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="400">
-                <div class="product-card-one">
-                    <div class="product-img">
-                        <img src="{% static 'assets/img/product/product-3.webp' %}" alt="Image">
-                        <ul class="product-option list-style">
-                            <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
-                            <li><a href="compare.html"><i class="flaticon-compare"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-ratings">
-                            <ul class="list-style">
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                            </ul>
-                            <span>(4k+ Ratings)</span>
-                        </div>
-                        <h3><a href="listing-details.html">Volvo Electric Model A10</a></h3>
-                        <div class="product-price">Price: $46000</div>
-                        <ul class="product-amenity list-style">
-                            <li>Transmission <span>Autometic</span></li>
-                            <li>Drive <span>4WD</span></li>
-                            <li>Mileage<span>1500 (Mi)</span></li>
-                        </ul>
-                        <a href="listing-details.html" class="btn-one">View Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="500">
-                <div class="product-card-one">
-                    <div class="product-img">
-                        <img src="{% static 'assets/img/product/product-4.webp' %}" alt="Image">
-                        <ul class="product-option list-style">
-                            <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
-                            <li><a href="compare.html"><i class="flaticon-compare"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-ratings">
-                            <ul class="list-style">
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                            </ul>
-                            <span>(2k+ Ratings)</span>
-                        </div>
-                        <h3><a href="listing-details.html">Tesla 2022 Edition T10</a></h3>
-                        <div class="product-price">Price: $76000</div>
-                        <ul class="product-amenity list-style">
-                            <li>Transmission <span>Autometic</span></li>
-                            <li>Drive <span>4WD</span></li>
-                            <li>Mileage<span>1500 (Mi)</span></li>
-                        </ul>
-                        <a href="listing-details.html" class="btn-one">View Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="600">
-                <div class="product-card-one">
-                    <div class="product-img">
-                        <img src="{% static 'assets/img/product/product-5.webp' %}" alt="Image">
-                        <ul class="product-option list-style">
-                            <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
-                            <li><a href="compare.html"><i class="flaticon-compare"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-ratings">
-                            <ul class="list-style">
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                            </ul>
-                            <span>(8k+ Ratings)</span>
-                        </div>
-                        <h3><a href="listing-details.html">Hundai Kong GT Sports</a></h3>
-                        <div class="product-price">Price: $85000</div>
-                        <ul class="product-amenity list-style">
-                            <li>Transmission <span>Autometic</span></li>
-                            <li>Drive <span>4WD</span></li>
-                            <li>Mileage<span>1500 (Mi)</span></li>
-                        </ul>
-                        <a href="listing-details.html" class="btn-one">View Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="700">
-                <div class="product-card-one">
-                    <div class="product-img">
-                        <img src="{% static 'assets/img/product/product-6.webp' %}" alt="Image">
-                        <ul class="product-option list-style">
-                            <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
-                            <li><a href="compare.html"><i class="flaticon-compare"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-ratings">
-                            <ul class="list-style">
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                            </ul>
-                            <span>(7k+ Ratings)</span>
-                        </div>
-                        <h3><a href="listing-details.html">Range Rover Evouqe</a></h3>
-                        <div class="product-price">Price: $39000</div>
-                        <ul class="product-amenity list-style">
-                            <li>Transmission <span>Autometic</span></li>
-                            <li>Drive <span>4WD</span></li>
-                            <li>Mileage<span>1500 (Mi)</span></li>
-                        </ul>
-                        <a href="listing-details.html" class="btn-one">View Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="800">
-                <div class="product-card-one">
-                    <div class="product-img">
-                        <img src="{% static 'assets/img/product/product-7.webp' %}" alt="Image">
-                        <ul class="product-option list-style">
-                            <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
-                            <li><a href="compare.html"><i class="flaticon-compare"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-ratings">
-                            <ul class="list-style">
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                            </ul>
-                            <span>(9k+ Ratings)</span>
-                        </div>
-                        <h3><a href="listing-details.html">New 2022 Lexus RC4</a></h3>
-                        <div class="product-price">Price: $54000</div>
-                        <ul class="product-amenity list-style">
-                            <li>Transmission <span>Autometic</span></li>
-                            <li>Drive <span>4WD</span></li>
-                            <li>Mileage<span>1500 (Mi)</span></li>
-                        </ul>
-                        <a href="listing-details.html" class="btn-one">View Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="900">
-                <div class="product-card-one">
-                    <div class="product-img">
-                        <img src="{% static 'assets/img/product/product-8.webp' %}" alt="Image">
-                        <ul class="product-option list-style">
-                            <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
-                            <li><a href="compare.html"><i class="flaticon-compare"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-ratings">
-                            <ul class="list-style">
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                            </ul>
-                            <span>(6k+ Ratings)</span>
-                        </div>
-                        <h3><a href="listing-details.html">BMW X3 New xdrive</a></h3>
-                        <div class="product-price">Price: $35000</div>
-                        <ul class="product-amenity list-style">
-                            <li>Transmission <span>Autometic</span></li>
-                            <li>Drive <span>4WD</span></li>
-                            <li>Mileage<span>1500 (Mi)</span></li>
-                        </ul>
-                        <a href="listing-details.html" class="btn-one">View Details</a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
+
+<div class="text-center mt-4">
+    <a href="{% url 'products:shop' %}" class="btn-gold-black btn-lg fade-animation">
+        مشاهده همه موترها
+    </a>
+</div>
+
+<style>
+/* Gold and Black Button */
+.btn-gold-black {
+    background: #000000;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    padding: 14px 40px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    letter-spacing: 0.5px;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+}
+
+/* Hover Effect - Background becomes gold */
+.btn-gold-black:hover {
+    background: #FFD700;
+    color: #000000;
+    border-color: #FFD700;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+}
+
+/* Fade Animation */
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.fade-animation {
+    animation: fadeInScale 0.6s ease forwards;
+    opacity: 0;
+}
+
+/* Optional: Add gold shimmer effect on hover */
+.btn-gold-black::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: -1;
+}
+
+.btn-gold-black:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Active/Pressed State */
+.btn-gold-black:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
+}
+
+/* Large size modifier */
+.btn-gold-black.btn-lg {
+    padding: 16px 50px;
+    font-size: 18px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .btn-gold-black.btn-lg {
+        padding: 12px 35px;
+        font-size: 16px;
+    }
+}
+
+/* Focus State */
+.btn-gold-black:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+}
+</style>
+    
     </div>
 </div>
 <!-- Product Section End -->
 
-<!-- Brand Section Start -->
-<div class="brand-wrap pt-100 pb-75 bg_primary">
-    <div class="container">
-        <img src="{% static 'assets/img/circle-shape.webp' %}" alt="Image" class="circle-shape">
-        <div class="section-title-one text-center mb-40">
-            <span>Top Brands</span>
-            <h2>Browse Our Top Quality Brands</h2>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6" data-aos="fade-right" data-aos-duration="1200"
-                data-aos-delay="200">
-                <div class="brand-card-one">
-                    <div class="brand-logo">
-                        <img src="{% static 'assets/img/brand/brand-1.webp' %}" alt="Image">
-                    </div>
-                    <h3>Paragon</h3>
-                </div>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6" data-aos="fade-right" data-aos-duration="1200"
-                data-aos-delay="300">
-                <div class="brand-card-one">
-                    <div class="brand-logo">
-                        <img src="{% static 'assets/img/brand/brand-2.webp' %}" alt="Image">
-                    </div>
-                    <h3>Catering</h3>
-                </div>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6" data-aos="fade-right" data-aos-duration="1200"
-                data-aos-delay="400">
-                <div class="brand-card-one">
-                    <div class="brand-logo">
-                        <img src="{% static 'assets/img/brand/brand-3.webp' %}" alt="Image">
-                    </div>
-                    <h3>Professor</h3>
-                </div>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6" data-aos="fade-right" data-aos-duration="1200"
-                data-aos-delay="500">
-                <div class="brand-card-one">
-                    <div class="brand-logo">
-                        <img src="{% static 'assets/img/brand/brand-4.webp' %}" alt="Image">
-                    </div>
-                    <h3>Darwin</h3>
-                </div>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6" data-aos="fade-right" data-aos-duration="1200"
-                data-aos-delay="600">
-                <div class="brand-card-one">
-                    <div class="brand-logo">
-                        <img src="{% static 'assets/img/brand/brand-5.webp' %}" alt="Image">
-                    </div>
-                    <h3>Yogpa</h3>
-                </div>
-            </div>
-            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6" data-aos="fade-right" data-aos-duration="1200"
-                data-aos-delay="700">
-                <div class="brand-card-one">
-                    <div class="brand-logo">
-                        <img src="{% static 'assets/img/brand/brand-6.webp' %}" alt="Image">
-                    </div>
-                    <h3>Sparx</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Brand Section End -->
-
-<!-- Call To Action Section Start -->
-<div class="cta-wrap ptb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-xxl-6 offset-xxl-3 col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-8 offset-md-2">
-                <div class="cta-content">
-                    <a class="play-now" data-fslightbox="" href="https://www.youtube.com/watch?v=BJoVxpAZb_E">
-                        <ion-icon name="play"></ion-icon>
-                        <span class="ripple"></span>
-                    </a>
-                    <div class="section-title-one text-center mb-30">
-                        <h2>Buy The Best Quality Car With us</h2>
-                        <p>Lorem ipsum dolor amet consectetur adipisicing elit sed do eiusmod cste dolore magnam aliquam
-                            quaerat demi text voluptatem dolore amet magna aliqua magna elit.</p>
-                    </div>
-                    <div class="cta-btn">
-                        <a href="inventory.html" class="btn-two">View Inventory</a>
-                        <a href="contact.html" class="btn-three">Contact Us</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Call To Action Section End -->
-
-<!-- Category Section Start -->
-<div class="category-wrap ptb-100">
-    <div class="container">
-        <div class="section-title-one text-center mb-30">
-            <span>Find More</span>
-            <h2>Find Your Dream Car</h2>
-        </div>
-        <div class="category-slider-one owl-carousel">
-            <div class="category-card-one">
-                <div class="cat-img">
-                    <img src="{% static 'assets/img/category/cat-1.webp' %}" alt="Image">
-                </div>
-                <h3><a href="listings.html">Convertible</a></h3>
-            </div>
-            <div class="category-card-one">
-                <div class="cat-img">
-                    <img src="{% static 'assets/img/category/cat-2.webp' %}" alt="Image">
-                </div>
-                <h3><a href="listings.html">Sedan</a></h3>
-            </div>
-            <div class="category-card-one">
-                <div class="cat-img">
-                    <img src="{% static 'assets/img/category/cat-3.webp' %}" alt="Image">
-                </div>
-                <h3><a href="listings.html">Wagon</a></h3>
-            </div>
-            <div class="category-card-one">
-                <div class="cat-img">
-                    <img src="{% static 'assets/img/category/cat-4.webp' %}" alt="Image">
-                </div>
-                <h3><a href="listings.html">Car</a></h3>
-            </div>
-            <div class="category-card-one">
-                <div class="cat-img">
-                    <img src="{% static 'assets/img/category/cat-5.webp' %}" alt="Image">
-                </div>
-                <h3><a href="listings.html">Crossover</a></h3>
-            </div>
-            <div class="category-card-one">
-                <div class="cat-img">
-                    <img src="{% static 'assets/img/category/cat-6.webp' %}" alt="Image">
-                </div>
-                <h3><a href="listings.html">Coupe</a></h3>
-            </div>
-            <div class="category-card-one">
-                <div class="cat-img">
-                    <img src="{% static 'assets/img/category/cat-1.webp' %}" alt="Image">
-                </div>
-                <h3><a href="listings.html">Convertible</a></h3>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Category Section End -->
-
-<!-- Dealer Section Start -->
-<div class="dealer-wrap pb-75">
-    <div class="container">
-        <div class="section-title-one text-center mb-30">
-            <span>Best Dealers</span>
-            <h2>Best Dealers In Your Town</h2>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="200">
-                <div class="dealer-card">
-                    <div class="dealer-logo">
-                        <img src="{% static 'assets/img/dealer/dealer-1.webp' %}" alt="Image">
-                    </div>
-                    <div class="dealer-info">
-                        <h3><a href="dealer-details.html">Quality Auto Services</a></h3>
-                        <ul class="dealer-metainfo list-style">
-                            <li><i class="flaticon-placeholder"></i>West 12th Street New York</li>
-                            <li><i class="flaticon-survey"></i>Total Listings: 1</li>
-                            <li><i class="flaticon-phone-call"></i><a href="7553028572">+1 755 302 8572</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="300">
-                <div class="dealer-card">
-                    <div class="dealer-logo">
-                        <img src="{% static 'assets/img/dealer/dealer-2.webp' %}" alt="Image">
-                    </div>
-                    <div class="dealer-info">
-                        <h3><a href="dealer-details.html">JAPA Auto Parts</a></h3>
-                        <ul class="dealer-metainfo list-style">
-                            <li><i class="flaticon-placeholder"></i>3135 Oliver St, Fort Worth</li>
-                            <li><i class="flaticon-survey"></i>Total Listings: 2</li>
-                            <li><i class="flaticon-phone-call"></i><a href="7553028572">+1 755 302 8572</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="400">
-                <div class="dealer-card">
-                    <div class="dealer-logo">
-                        <img src="{% static 'assets/img/dealer/dealer-3.webp' %}" alt="Image">
-                    </div>
-                    <div class="dealer-info">
-                        <h3><a href="dealer-details.html">Precision Tune Auto Care</a></h3>
-                        <ul class="dealer-metainfo list-style">
-                            <li><i class="flaticon-placeholder"></i>342/A Brooklyn St, Milson</li>
-                            <li><i class="flaticon-survey"></i>Total Listings: 10</li>
-                            <li><i class="flaticon-phone-call"></i><a href="7553028572">+1 755 302 8572</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="500">
-                <div class="dealer-card">
-                    <div class="dealer-logo">
-                        <img src="{% static 'assets/img/dealer/dealer-4.webp' %}" alt="Image">
-                    </div>
-                    <div class="dealer-info">
-                        <h3><a href="dealer-details.html">Affordable Automotive </a></h3>
-                        <ul class="dealer-metainfo list-style">
-                            <li><i class="flaticon-placeholder"></i>123 Queensberry Street</li>
-                            <li><i class="flaticon-survey"></i>Total Listings: 5</li>
-                            <li><i class="flaticon-phone-call"></i><a href="7553028572">+1 755 302 8528</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="600">
-                <div class="dealer-card">
-                    <div class="dealer-logo">
-                        <img src="{% static 'assets/img/dealer/dealer-5.webp' %}" alt="Image">
-                    </div>
-                    <div class="dealer-info">
-                        <h3><a href="dealer-details.html">Zoom Vroom Auto </a></h3>
-                        <ul class="dealer-metainfo list-style">
-                            <li><i class="flaticon-placeholder"></i>North Melbourne VIC 3051</li>
-                            <li><i class="flaticon-survey"></i>Total Listings: 13</li>
-                            <li><i class="flaticon-phone-call"></i><a href="7553028572">+1 755 302 8544</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="700">
-                <div class="dealer-card">
-                    <div class="dealer-logo">
-                        <img src="{% static 'assets/img/dealer/dealer-6.webp' %}" alt="Image">
-                    </div>
-                    <div class="dealer-info">
-                        <h3><a href="dealer-details.html">The Auto Hospital </a></h3>
-                        <ul class="dealer-metainfo list-style">
-                            <li><i class="flaticon-placeholder"></i>California, United States</li>
-                            <li><i class="flaticon-survey"></i>Total Listings: 2</li>
-                            <li><i class="flaticon-phone-call"></i><a href="7553028572">+61-1234-5678-9</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="800">
-                <div class="dealer-card">
-                    <div class="dealer-logo">
-                        <img src="{% static 'assets/img/dealer/dealer-7.webp' %}" alt="Image">
-                    </div>
-                    <div class="dealer-info">
-                        <h3><a href="dealer-details.html">The Friendly Garage</a></h3>
-                        <ul class="dealer-metainfo list-style">
-                            <li><i class="flaticon-placeholder"></i>44 New Design Street USA</li>
-                            <li><i class="flaticon-survey"></i>Total Listings: 12</li>
-                            <li><i class="flaticon-phone-call"></i><a href="7553028572">+0477 85X6 552</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="900">
-                <div class="dealer-card">
-                    <div class="dealer-logo">
-                        <img src="{% static 'assets/img/dealer/dealer-8.webp' %}" alt="Image">
-                    </div>
-                    <div class="dealer-info">
-                        <h3><a href="dealer-details.html">Ready To Repair</a></h3>
-                        <ul class="dealer-metainfo list-style">
-                            <li><i class="flaticon-placeholder"></i>685 Lane Drive St. Canada</li>
-                            <li><i class="flaticon-survey"></i>Total Listings: 1</li>
-                            <li><i class="flaticon-phone-call"></i><a href="7553028572">+ 10 256 65 26</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Dealer Section End -->
-
 <!-- Why Choose us Section Start -->
-<div class="wy-choose-wrap bg_primary pt-100 pb-75">
+<div class="wy-choose-wrap bg_primary pt-100 pb-75" style="font-family: 'Vazirmatn', sans-serif;">
     <div class="container">
         <div class="row">
             <div class="col-xxl-4 col-xl-5 col-lg-5">
                 <div class="wh-content">
                     <div class="content-title-one mb-40">
-                        <span>Why Choose Us</span>
-                        <h2>Provide High Service For Everyone</h2>
-                        <p>Lorem ipsum dolor amet consectetur adipisicing elit sed do demi text voluptatem dolore amet
-                            magna aliqua.</p>
+                        <span>چرا ما را انتخاب کنید</span>
+                        <h2>کندهار موتر فروشی، انتخاب مطمئن برای خرید و فروش موتر شما</h2>
+                        <p>
+                            ما در کندهار موتر فروشی با ارائه موترهای باکیفیت، قیمت مناسب و خدمات حرفه‌ای،
+                            تلاش می‌کنیم بهترین تجربه خرید را برای مشتریان خود فراهم کنیم.
+                            رضایت شما اولویت اصلی ماست.
+                        </p>
                     </div>
                     <img src="{% static 'assets/img/about/wh-img.webp' %}" alt="Image" class="wh-img"
                         data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
                 </div>
             </div>
+
             <div class="col-xxl-8 col-xl-7 col-lg-7">
                 <div class="row">
+
                     <div class="col-xl-6 col-lg-12 col-md-6" data-aos="fade-left" data-aos-duration="1200"
                         data-aos-delay="200">
                         <div class="wh-card">
@@ -825,11 +213,14 @@
                             <span class="wh-icon">
                                 <i class="flaticon-car-key"></i>
                             </span>
-                            <h3>Wide Range Of Brands</h3>
-                            <p>Lorem ipsum dolor amet consectetur adipiscing elit sed do eiusmod tempor incididunt
-                                labore et dolore magna aliqua enim ad minim veniamquis</p>
+                            <h3>تنوع گسترده برندها</h3>
+                            <p>
+                                مجموعه‌ای متنوع از بهترین برندهای داخلی و خارجی را برای شما فراهم کرده‌ایم
+                                تا بتوانید مطابق نیاز و بودجه خود بهترین انتخاب را داشته باشید.
+                            </p>
                         </div>
                     </div>
+
                     <div class="col-xl-6 col-lg-12 col-md-6" data-aos="fade-left" data-aos-duration="1200"
                         data-aos-delay="200">
                         <div class="wh-card">
@@ -837,11 +228,14 @@
                             <span class="wh-icon">
                                 <i class="flaticon-disc-brake"></i>
                             </span>
-                            <h3>Finance Made Easy</h3>
-                            <p>Lorem ipsum dolor amet consectetur adipiscing elit sed do eiusmod tempor incididunt
-                                labore et dolore magna aliqua enim ad minim veniamquis</p>
+                            <h3>خرید آسان و مطمئن</h3>
+                            <p>
+                                با مشاوره تخصصی تیم ما، می‌توانید با اطمینان کامل موتر مورد نظر خود را
+                                انتخاب کرده و روند خرید را به ساده‌ترین شکل انجام دهید.
+                            </p>
                         </div>
                     </div>
+
                     <div class="col-xl-6 col-lg-12 col-md-6" data-aos="fade-left" data-aos-duration="1200"
                         data-aos-delay="200">
                         <div class="wh-card">
@@ -849,11 +243,14 @@
                             <span class="wh-icon">
                                 <i class="flaticon-gear"></i>
                             </span>
-                            <h3>Trusted By Thousands</h3>
-                            <p>Lorem ipsum dolor amet consectetur adipiscing elit sed do eiusmod tempor incididunt
-                                labore et dolore magna aliqua enim ad minim veniamquis</p>
+                            <h3>اعتماد هزاران مشتری</h3>
+                            <p>
+                                صداقت، شفافیت و کیفیت خدمات باعث شده است مشتریان زیادی به ما اعتماد کنند
+                                و کندهار موتر فروشی را برای خرید موتر خود انتخاب نمایند.
+                            </p>
                         </div>
                     </div>
+
                     <div class="col-xl-6 col-lg-12 col-md-6" data-aos="fade-left" data-aos-duration="1200"
                         data-aos-delay="200">
                         <div class="wh-card">
@@ -861,11 +258,14 @@
                             <span class="wh-icon">
                                 <i class="flaticon-tire"></i>
                             </span>
-                            <h3>Car Service & Maintenance</h3>
-                            <p>Lorem ipsum dolor amet consectetur adipiscing elit sed do eiusmod tempor incididunt
-                                labore et dolore magna aliqua enim ad minim veniamquis</p>
+                            <h3>خدمات و پشتیبانی حرفه‌ای</h3>
+                            <p>
+                                حتی پس از خرید نیز در کنار شما هستیم. ارائه مشاوره، راهنمایی و خدمات مرتبط
+                                بخشی از تعهد ما به مشتریان عزیز می‌باشد.
+                            </p>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -873,245 +273,6 @@
 </div>
 <!-- Why Choose us Section End -->
 
-<!-- Testimonial Section Start -->
-<div class="testimonial-wrap-one bg-f ptb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-8">
-                <div class="testimonial-slider-one owl-carousel">
-                    <div class="testimonial-card-one">
-                        <div class="client-info-wrap">
-                            <div class="client-img">
-                                <img src="{% static 'assets/img/clients/client-1.webp' %}" alt="Image">
-                            </div>
-                            <div class="client-info">
-                                <h3>George Brown</h3>
-                                <span>Customer Advisor</span>
-                            </div>
-                            <div class="quote-icon">
-                                <i class="flaticon-straight-quotes"></i>
-                            </div>
-                        </div>
-                        <p class="client-quote">“It is a long established fact that a reader will be distracted by the
-                            readable content of a page when looking at its layout he point of using Lorem Ipsum is that
-                            it has a moreor less normal distribution of letters as opposed to using content here content
-                            here making it look like readable english many desktop publishing dolore.”</p>
-                        <ul class="ratings list-style">
-                            <li><i class="ri-star-fill"></i></li>
-                            <li><i class="ri-star-fill"></i></li>
-                            <li><i class="ri-star-fill"></i></li>
-                            <li><i class="ri-star-fill"></i></li>
-                            <li><i class="ri-star-fill"></i></li>
-                        </ul>
-                    </div>
-                    <div class="testimonial-card-one">
-                        <div class="client-info-area">
-                            <div class="client-info-wrap">
-                                <div class="client-img">
-                                    <img src="{% static 'assets/img/clients/client-6.webp' %}" alt="Image">
-                                </div>
-                                <div class="client-info">
-                                    <h3>Miranda Halim</h3>
-                                    <span>General Manager</span>
-                                </div>
-                                <div class="quote-icon">
-                                    <i class="flaticon-straight-quotes"></i>
-                                </div>
-                            </div>
-                            <p class="client-quote">“It is a long established fact that a reader will be distracted by
-                                the readable content of a page when looking at its layout he point of using Lorem Ipsum
-                                is that it has a moreor less normal distribution of letters as opposed to using content
-                                here content here making it look like readable english many desktop publishing dolore.”
-                            </p>
-                            <ul class="ratings list-style">
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="testimonial-card-one">
-                        <div class="client-info-area">
-                            <div class="client-info-wrap">
-                                <div class="client-img">
-                                    <img src="{% static 'assets/img/clients/client-1.webp' %}" alt="Image">
-                                </div>
-                                <div class="client-info">
-                                    <h3>Kate Stewart</h3>
-                                    <span>Happy Customer</span>
-                                </div>
-                                <div class="quote-icon">
-                                    <i class="flaticon-straight-quotes"></i>
-                                </div>
-                            </div>
-                            <p class="client-quote">“It is a long established fact that a reader will be distracted by
-                                the readable content of a page when looking at its layout he point of using Lorem Ipsum
-                                is that it has a moreor less normal distribution of letters as opposed to using content
-                                here content here making it look like readable english many desktop publishing dolore.”
-                            </p>
-                            <ul class="ratings list-style">
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="testimonial-card-one">
-                        <div class="client-info-area">
-                            <div class="client-info-wrap">
-                                <div class="client-img">
-                                    <img src="{% static 'assets/img/clients/client-5.webp' %}" alt="Image">
-                                </div>
-                                <div class="client-info">
-                                    <h3>Kilian Anderson</h3>
-                                    <span>Web Designer</span>
-                                </div>
-                                <div class="quote-icon">
-                                    <i class="flaticon-straight-quotes"></i>
-                                </div>
-                            </div>
-                            <p class="client-quote">“It is a long established fact that a reader will be distracted by
-                                the readable content of a page when looking at its layout he point of using Lorem Ipsum
-                                is that it has a moreor less normal distribution of letters as opposed to using content
-                                here content here making it look like readable english many desktop publishing dolore.”
-                            </p>
-                            <ul class="ratings list-style">
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                                <li><i class="ri-star-fill"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-4">
-                <div class="client-video">
-                    <a class="play-now" data-fslightbox="" href="https://www.youtube.com/watch?v=BJoVxpAZb_E">
-                        <ion-icon name="play"></ion-icon>
-                        <span class="ripple"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Testimonial Section End -->
-
-<!-- Blog Section Start -->
-<div class="blog-wrap pt-100 pb-75">
-    <div class="container">
-        <div class="section-title-one text-center mb-30">
-            <span>Latest News</span>
-            <h2>Easy & Fast Way To Buy Car</h2>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="200">
-                <div class="blog-card-one">
-                    <div class="blog-img">
-                        <img src="{% static 'assets/img/blog/blog-1.webp' %}" alt="Image">
-                    </div>
-                    <div class="blog-info">
-                        <ul class="blog-metainfo  list-style">
-                            <li><i class="ri-user-3-line"></i><a href="posts-by-author.html">By Admin</a></li>
-                            <li><i class="ri-calendar-line"></i>28 October, 2024</li>
-                        </ul>
-                        <h3><a href="blog-details-right-sidebar.html">Ford Focus Production For North America
-                                Will...</a></h3>
-                        <a href="blog-details-right-sidebar.html" class="link-one">Read More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="300">
-                <div class="blog-card-one">
-                    <div class="blog-img">
-                        <img src="{% static 'assets/img/blog/blog-2.webp' %}" alt="Image">
-                    </div>
-                    <div class="blog-info">
-                        <ul class="blog-metainfo  list-style">
-                            <li><i class="ri-user-3-line"></i><a href="posts-by-author.html">By Admin</a></li>
-                            <li><i class="ri-calendar-line"></i>28 October, 2024</li>
-                        </ul>
-                        <h3><a href="blog-details-right-sidebar.html">We Hear: Audi RS Models Could Be Offered In...</a>
-                        </h3>
-                        <a href="blog-details-right-sidebar.html" class="link-one">Read More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="400">
-                <div class="blog-card-one">
-                    <div class="blog-img">
-                        <img src="{% static 'assets/img/blog/blog-3.webp' %}" alt="Image">
-                    </div>
-                    <div class="blog-info">
-                        <ul class="blog-metainfo  list-style">
-                            <li><i class="ri-user-3-line"></i><a href="posts-by-author.html">By Admin</a></li>
-                            <li><i class="ri-calendar-line"></i>28 October, 2024</li>
-                        </ul>
-                        <h3><a href="blog-details-right-sidebar.html">BMW Black Fire Edition X5, X6 M Coming In...</a>
-                        </h3>
-                        <a href="blog-details-right-sidebar.html" class="link-one">Read More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1200"
-                data-aos-delay="500">
-                <div class="blog-card-one">
-                    <div class="blog-img">
-                        <img src="{% static 'assets/img/blog/blog-4.webp' %}" alt="Image">
-                    </div>
-                    <div class="blog-info">
-                        <ul class="blog-metainfo  list-style">
-                            <li><i class="ri-user-3-line"></i><a href="posts-by-author.html">By Admin</a></li>
-                            <li><i class="ri-calendar-line"></i>28 October, 2024</li>
-                        </ul>
-                        <h3><a href="blog-details-right-sidebar.html">2015 Ferrari 458 Italia Nice
-                                A True Sports Car</a></h3>
-                        <a href="blog-details-right-sidebar.html" class="link-one">Read More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Blog Section End -->
-
-<!-- App Section Start -->
-<div class="app-wrap">
-    <div class="container">
-        <div class="app-box bg_ash">
-            <img src="{% static 'assets/img/app/app-shape-1.webp' %}" alt="Image" class="app-shape-one">
-            <img src="{% static 'assets/img/app/app-shape-2.webp' %}" alt="Image" class="app-shape-two">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="app-content">
-                        <div class="content-title-two">
-                            <span>Our App</span>
-                            <h2>Download Motoz App For Free!</h2>
-                            <p>It is a long established fact that reader will be distracted by the dolore</p>
-                        </div>
-                        <div class="app-btn">
-                            <a href="index.html"><img src="{% static 'assets/img/icon/google-play.webp' %}" alt="Image">
-                                GET IT ON <span>Google Play</span></a>
-                            <a href="index.html"><img src="{% static 'assets/img/icon/apple-store.webp' %}"
-                                    alt="Image">Download on The <span>App Store</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <img src="{% static 'assets/img/app/app.webp' %}" alt="Image" class="app-img">
-        </div>
-    </div>
-</div>
-<!-- App Section End -->
 
 <!-- Back-to-top button Start -->
 <div class="paginacontainer">
