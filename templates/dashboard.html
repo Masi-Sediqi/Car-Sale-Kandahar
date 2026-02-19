@@ -72,7 +72,47 @@
                                 <li>سوخت <span>{{ car.fuel_type }}</span></li>
                                 <li>سال ساخت<span>{{ car.year_of_manufacture }}</span></li>
                             </ul>
-                            <a href="{% url 'products:car_detail' car.id %}" class="btn-one">جزئیات</a>
+                            <div class="action-buttons">
+                                <a href="{% url 'products:car_detail' car.id %}" class="btn-one">
+                                    جزئیات
+                                </a>
+
+                                <a href="{% url 'products:toggle_wishlist' car.id %}" class="wishlist-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="heart-icon">
+    {% if car.id in wishlist_car_ids %}
+    <!-- فعال: قلب قرمز -->
+    <path fill="#fd0d0d" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"/>
+    {% else %}
+    <!-- غیرفعال: قلب مشکی -->
+    <path fill="#000000" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"/>
+    {% endif %}
+</svg>
+<style>.heart-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.2s;
+}
+
+.heart-icon:hover {
+    transform: scale(1.2);
+}
+</style>
+                                </a>
+                            </div>
+
+                            <style>
+                            .action-buttons {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                            }
+
+                            .wishlist-icon {
+                                margin-top: 19px; /* 👈 پایین آوردن */
+                                display: inline-block;
+                                cursor: pointer;
+                            }
+                            </style>
                         </div>
                     </div>
                 </div>

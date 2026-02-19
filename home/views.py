@@ -6,10 +6,19 @@ from django.contrib import messages
 
 def dashboard(request):
     cars = NewCar.objects.filter(is_activated=True).order_by('-created_at')[:4]
+
+    wishlist_car_ids = []
+    if request.user.is_authenticated:
+        wishlist_car_ids = Wishlist.objects.filter(
+            user=request.user,
+            is_active=True
+        ).values_list('car_id', flat=True)
+
     hero_slider = HeroSlider.objects.filter(is_read=True)
     context = {
         'cars':cars,
         'hero_slider':hero_slider,
+        'wishlist_car_ids':wishlist_car_ids,
     }
     return render(request, 'dashboard.html', context)
 

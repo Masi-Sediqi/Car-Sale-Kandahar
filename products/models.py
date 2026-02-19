@@ -50,3 +50,17 @@ class NewCarImage(models.Model):
 
     def __str__(self):
         return f"{self.car.title} - تصویر اضافی"
+    
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="wishlist")
+    car = models.ForeignKey(NewCar, on_delete=models.CASCADE, related_name="wishlisted")
+    is_active = models.BooleanField(default=True)  # 👈 مهم
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user', 'car')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.car.title}"

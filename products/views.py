@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
 from users.models import *
@@ -201,11 +202,55 @@ def shop(request):
             Q(mileage_km__icontains=query)
         ).order_by('priority', '-created_at')  # first priority, then newest
 
+    wishlist_car_ids = []
+    if request.user.is_authenticated:
+        wishlist_car_ids = Wishlist.objects.filter(
+            user=request.user,
+            is_active=True
+        ).values_list('car_id', flat=True)
+        
     else:
         cars = cars.order_by('-created_at')
 
     context = {
         'cars': cars,
         'query': query,
+        'wishlist_car_ids': wishlist_car_ids,
     }
     return render(request, 'products/shop.html', context)
+
+
+@login_required
+def toggle_wishlist(request, car_id):
+    car = get_object_or_404(NewCar, id=car_id)
+
+    wishlist_item, created = Wishlist.objects.get_or_create(
+        user=request.user,
+        car=car
+    )
+
+    if created:
+        wishlist_item.is_active = True
+        wishlist_item.save()
+        messages.success(request, f'موتر "{car.title}" به علاقمندی‌ها اضافه شد.')
+    else:
+        wishlist_item.is_active = not wishlist_item.is_active
+        wishlist_item.save()
+        if wishlist_item.is_active:
+            messages.success(request, f'موتر "{car.title}" دوباره به علاقمندی‌ها اضافه شد.')
+        else:
+            messages.warning(request, f'موتر "{car.title}" از علاقمندی‌ها حذف شد.')
+
+    return redirect(request.META.get('HTTP_REFERER', 'home:dashboard'))
+
+
+@login_required
+def my_wishlist(request):
+    wishlist_items = Wishlist.objects.filter(
+        user=request.user,
+        is_active=True
+    ).select_related('car')
+
+    return render(request, 'products/my_wishlist.html', {
+        'wishlist_items': wishlist_items
+    })

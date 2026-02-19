@@ -2,19 +2,280 @@
 {% load static %}
 {% block content %}
 
+<div class="body_overlay"></div>
+
 <!-- Breadcrumb Start -->
 <div class="breadcrumb-wrap br-4 bg-f">
     <div class="container">
         <div class="breadcrumb-title">
-            <h2>پروفایل من</h2>
+            <h2>موتر های مورد علاقه من</h2>
             <ul class="breadcrumb-menu list-style">
-                <li><a href="/">داشبورد </a></li>
-                <li>پروفایل من</li>
+                <li><a href="/">داشبور </a></li>
+                <li>علاقمندی‌ها</li>
             </ul>
         </div>
     </div>
 </div>
 <!-- Breadcrumb End -->
+
+<!-- Django Messages Section -->
+{% if messages %}
+<div class="messages-wrapper">
+    {% for message in messages %}
+    <div class="message-box message-{{ message.tags }}">
+        <div class="message-icon">
+            {% if message.tags == 'success' %} ✓
+            {% elif message.tags == 'error' %} ⚠️
+            {% elif message.tags == 'warning' %} ⚡
+            {% elif message.tags == 'info' %} ℹ️
+            {% else %} 📢
+            {% endif %}
+        </div>
+        <div class="message-text">
+            {{ message }}
+        </div>
+        <button class="message-close" onclick="this.parentElement.remove()">×</button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<style>
+
+    /* Messages Styles */
+    .messages-wrapper {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+        width: 90%;
+        max-width: 500px;
+        direction: rtl;
+    }
+
+    .message-box {
+        background: #111;
+        border: 1px solid;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        animation: slideDown 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    @keyframes slideDown {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .message-success {
+        border-color: #ffd700;
+        background: rgba(255, 215, 0, 0.1);
+    }
+
+    .message-error {
+        border-color: #ff6b6b;
+        background: rgba(255, 107, 107, 0.1);
+    }
+
+    .message-warning {
+        border-color: #ffa500;
+        background: rgba(255, 165, 0, 0.1);
+    }
+
+    .message-info {
+        border-color: #3498db;
+        background: rgba(52, 152, 219, 0.1);
+    }
+
+    .message-icon {
+        font-size: 24px;
+        min-width: 30px;
+        text-align: center;
+    }
+
+    .message-success .message-icon {
+        color: #ffd700;
+    }
+
+    .message-error .message-icon {
+        color: #ff6b6b;
+    }
+
+    .message-warning .message-icon {
+        color: #ffa500;
+    }
+
+    .message-info .message-icon {
+        color: #3498db;
+    }
+
+    .message-text {
+        flex: 1;
+        color: #fff;
+        font-size: 14px;
+        line-height: 1.6;
+        text-align: right;
+        font-family: 'Vazirmatn', sans-serif;
+    }
+
+    .message-close {
+        background: none;
+        border: none;
+        color: #666;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0 5px;
+        transition: color 0.3s ease;
+    }
+
+    .message-close:hover {
+        color: #ffd700;
+    }
+
+    /* Auto dismiss animation */
+    @keyframes fadeOut {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(-10px); }
+    }
+
+    .message-box.fade-out {
+        animation: fadeOut 0.3s ease forwards;
+    }
+
+    .done-wrap {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .done-box {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(255, 215, 0, 0.15);
+        max-width: 450px;
+        width: 100%;
+        background: #111;
+        border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .done-content {
+        padding: 40px 30px;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+
+    .icon-circle {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 215, 0, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        font-size: 40px;
+        color: #ffd700;
+        border: 2px solid #ffd700;
+    }
+
+    h2 {
+        color: #ffd700;
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0 0 10px;
+    }
+
+    .message {
+        color: #fff;
+        font-size: 16px;
+        line-height: 1.8;
+        margin: 20px 0;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        border-right: 3px solid #ffd700;
+        text-align: right;
+    }
+
+    .spam-note {
+        color: #999;
+        font-size: 14px;
+        margin: 15px 0;
+        padding: 10px;
+        background: rgba(255, 215, 0, 0.03);
+        border-radius: 8px;
+    }
+
+    .back-home {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #333;
+    }
+
+    .back-home a {
+        color: #666;
+        text-decoration: none;
+        font-size: 13px;
+        transition: color 0.3s ease;
+    }
+
+    .back-home a:hover {
+        color: #ffd700;
+    }
+
+    @media (max-width: 480px) {
+        .done-content {
+            padding: 30px 20px;
+        }
+        h2 {
+            font-size: 24px;
+        }
+        .messages-wrapper {
+            top: 10px;
+            width: 95%;
+        }
+        .message-box {
+            padding: 12px 16px;
+        }
+    }
+</style>
+
+<!-- Optional: Auto-dismiss messages after 5 seconds -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto dismiss messages after 5 seconds
+    const messages = document.querySelectorAll('.message-box');
+    messages.forEach(function(message) {
+        setTimeout(function() {
+            message.classList.add('fade-out');
+            setTimeout(function() {
+                if (message.parentElement) {
+                    message.remove();
+                }
+            }, 300);
+        }, 5000);
+    });
+});
+</script>
 
 <!-- Cart section start -->
 <style>
@@ -268,7 +529,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">نشر شده</th>
                             <th scope="col">عنوان</th>
                             <th scope="col">عکس</th>
                             <th scope="col">سال ساخت</th>
@@ -281,68 +541,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for pro in products %}
+                        {% for pro in wishlist_items %}
                         <tr>
                             <td>
-                                {% if pro.is_activated %}
-                                <span class="status-badge active">
-                                    <i class="ri-checkbox-circle-fill"></i> نشر شده
-                                </span>
-                                {% else %}
-                                <span class="status-badge inactive">
-                                    <i class="ri-close-circle-fill"></i> انتظار
-                                </span>
-                                {% endif %}
-                            </td>
-                            <style>
-                                .status-badge {
-                                    display: inline-flex;
-                                    align-items: center;
-                                    gap: 5px;
-                                    padding: 5px 12px;
-                                    border-radius: 20px;
-                                    font-size: 13px;
-                                    font-weight: 500;
-                                }
-
-                                .status-badge.active {
-                                    background-color: rgba(0, 200, 83, 0.1);
-                                    color: #00c853;
-                                }
-
-                                .status-badge.inactive {
-                                    background-color: rgba(164, 94, 89, 0.1);
-                                    color: #efdc08;
-                                }
-                            </style>
-
-                            <td>
-                                <a class="cart-item" href="{% url 'products:car_detail' pro.id %}">
-                                    <span style="background: transparent; padding: 0;">{{pro.title|truncatechars:20}}</span>
+                                <a class="cart-item" href="{% url 'products:car_detail' pro.car.id %}">
+                                    <span style="background: transparent; padding: 0;">{{pro.car.title|truncatechars:20}}</span>
                                 </a>
                             </td>
                             <td>
                                 <div class="product-img">
-                                    <img src="{{ pro.main_image.url }}" alt="Image">
+                                    <img src="{{ pro.car.main_image.url }}" alt="Image">
                                 </div>
                             </td>
                             <td>
-                                <p class="cart-item-price">{{ pro.year_of_manufacture }}</p>
+                                <p class="cart-item-price">{{ pro.car.year_of_manufacture }}</p>
                             </td>
                             <td>
-                                <span>{{ pro.price|floatformat:0 }}</span>
+                                <span>{{ pro.car.price|floatformat:0 }}</span>
                             </td>
                             <td>
-                                <span>{{ pro.get_gearbox_type_display }}</span>
+                                <span>{{ pro.car.get_gearbox_type_display }}</span>
                             </td>
                             <td>
-                                <span>{{ pro.fuel_type }}</span>
+                                <span>{{ pro.car.fuel_type }}</span>
                             </td>
                             <td>
-                                <span>{{ pro.mileage_km|floatformat:0 }} km</span>
+                                <span>{{ pro.car.mileage_km|floatformat:0 }} km</span>
                             </td>
                             <td>
-                                <span>{{ pro.created_at|date:"Y/m/d" }}</span>
+                                <span>{{ pro.car.created_at|date:"Y/m/d" }}</span>
                             </td>
                             <!-- Add this CSS for the modal -->
                             <style>
@@ -467,36 +694,33 @@
                             <!-- Update your delete button in the table -->
                             <td>
                                 <div class="action-buttons">
-                                    <a href="{% url 'products:edit_car' pro.id %}" class="cart-action edit-action" title="ایدیت">
-                                        <i class="ri-edit-2-fill"></i>
-                                    </a>
-
                                     <!-- Delete button that opens modal -->
                                     <button class="delete-btn" type="button"
                                         onclick="document.getElementById('deleteModal-{{ pro.id }}').showModal()"
-                                        title="حذف">
-                                        <i class="ri-delete-bin-5-fill"></i>
+                                        title="حذف از علاقمندی‌ها">
+                                        <!-- Changed icon to a "cross" / wrong icon -->
+                                        <i class="ri-close-circle-line"></i>
                                     </button>
 
                                     <!-- Modal for each product -->
                                     <dialog id="deleteModal-{{ pro.id }}" class="delete-modal">
                                         <div class="modal-content">
                                             <div class="modal-icon">
-                                                <i class="ri-delete-bin-line"></i>
+                                                <i class="ri-close-circle-line" style="color:#fd0d0d; font-size:40px;"></i>
                                             </div>
-                                            <h3>حذف موتر</h3>
-                                            <p>آیا از حذف "{{ pro.title }}" اطمینان دارید؟</p>
+                                            <h3>حذف از علاقمندی‌ها</h3>
+                                            <p>آیا از حذف "{{ pro.title }}" از علاقمندی‌های خود اطمینان دارید؟</p>
                                             <div class="modal-buttons">
-                                                <!-- Delete form first -->
-                                                <form class="delete-form" method="POST"
-                                                    action="{% url 'products:delete_car' pro.id %}">
+                                                <!-- Unwish form -->
+                                                <form class="delete-form" method="POST" action="{% url 'products:toggle_wishlist' pro.id %}">
                                                     {% csrf_token %}
+                                                    <!-- Set hidden input to false if needed, depends on your toggle logic -->
                                                     <button type="submit" class="modal-btn delete">
                                                         حذف
                                                     </button>
                                                 </form>
 
-                                                <!-- Cancel button second -->
+                                                <!-- Cancel button -->
                                                 <button class="modal-btn cancel" type="button"
                                                     onclick="document.getElementById('deleteModal-{{ pro.id }}').close()">
                                                     انصراف
@@ -508,7 +732,6 @@
                                                     gap: 10px;
                                                     justify-content: center;
                                                     direction: ltr;
-                                                    /* Keep buttons in correct order */
                                                 }
 
                                                 .modal-btn {
@@ -541,13 +764,13 @@
                                                     background: #d1d5db;
                                                 }
 
-                                                /* Form style */
                                                 .delete-form {
                                                     margin: 0;
                                                 }
                                             </style>
                                         </div>
                                     </dialog>
+
                                 </div>
                             </td>
                         </tr>
@@ -581,7 +804,7 @@
         }
     }
 </script>
-<!-- Cart section end -->
+
 <!-- Back-to-top button Start -->
 <div class="paginacontainer">
     <div class="progress-wrap bounce">

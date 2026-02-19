@@ -1,6 +1,6 @@
 # admin.py
 from django.contrib import admin
-from .models import NewCar, NewCarImage
+from .models import *
 
 # Inline for multiple images
 class NewCarImageInline(admin.TabularInline):
@@ -22,3 +22,5 @@ class NewCarAdmin(admin.ModelAdmin):
 class NewCarImageAdmin(admin.ModelAdmin):
     list_display = ('car', 'caption', 'uploaded_at')
     search_fields = ('car__title', 'caption')
+
+admin.site.register(Wishlist)

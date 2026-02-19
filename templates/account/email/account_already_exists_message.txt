@@ -1,13 +1,25 @@
 {% extends "account/email/base_message.txt" %}
 {% load i18n %}
 
-{% block content %}{% autoescape off %}{% blocktrans %}You are receiving this email because you or someone else tried to signup for an
-account using email address:
+{% block content %}
+{% autoescape off %}
+
+سلام،
+
+این پیام برای شما ارسال شده است زیرا شخصی (شما یا فرد دیگری) تلاش کرده با استفاده از ایمیل ذیل حساب کاربری ایجاد کند:
 
 {{ email }}
 
-However, an account using that email address already exists.  In case you have
-forgotten about this, please use the password forgotten procedure to recover
-your account:
+اما قبلاً یک حساب کاربری با این ایمیل ثبت شده است.
 
-{{ password_reset_url }}{% endblocktrans %}{% endautoescape %}{% endblock content %}
+اگر رمز عبور خود را فراموش کرده‌اید، لطفاً از طریق لینک ذیل برای بازیابی رمز عبور اقدام نمایید:
+
+{{ password_reset_url }}
+
+اگر شما این درخواست را انجام نداده‌اید، می‌توانید این پیام را نادیده بگیرید.
+
+با احترام،
+تیم موتر فروشی کندهار
+
+{% endautoescape %}
+{% endblock content %}
