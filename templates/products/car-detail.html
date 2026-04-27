@@ -504,7 +504,9 @@
                         <!-- Title & Price -->
                         <div class="title-section">
                             <h1>{{ car.title }}</h1>
-                            <span class="price-tag">{{ car.price|floatformat:0 }} دالر </span>
+                                <span class="price-tag">
+                                    {{ car.price|floatformat:0 }} {{ car.get_currency_display }}
+                                </span>
                         </div>
                         
                         <!-- Quick Info Grid -->
@@ -525,7 +527,9 @@
                                 </div>
                                 <div class="info-content">
                                     <div class="info-label">کارکرد</div>
-                                    <div class="info-value">{{ car.mileage_km|floatformat:0 }} km</div>
+                                        <div class="info-value">
+                                            {{ car.mileage_km|floatformat:0 }} {{ car.get_mileage_unit_display }}
+                                        </div>
                                 </div>
                             </div>
                             
@@ -545,7 +549,7 @@
                                 </div>
                                 <div class="info-content">
                                     <div class="info-label">سوخت</div>
-                                    <div class="info-value">{{ car.get_fuel_type_display }}</div>
+                                    <div class="info-value">{{ car.fuel_type }}</div>
                                 </div>
                             </div>
                         </div>

@@ -78,19 +78,83 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>کارکرد (کیلومتر)</label>
-                            <input type="number" name="mileage_km" placeholder="مثلا 50000" required>
-                            <div class="error-message">لطفاً کارکرد را وارد کنید</div>
+                            <label>حالت کارکرد</label>
+                            <select name="mileage_unit" id="mileage_unit" required>
+                                <option value="km">کیلومتر</option>
+                                <option value="mile">مایل</option>
+                            </select>
+                            <div class="error-message">لطفاً حالت کارکرد را انتخاب کنید</div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>قیمت</label>
-                            <input type="number" name="price" placeholder="4500 دالر" required>
-                            <div class="error-message">لطفاً قیمت را وارد کنید</div>
+                            <label id="mileage_label">مقدار کیلومتر</label>
+                            <input type="number" name="mileage_km" id="mileage_km" placeholder="مثلا 50000" required>
+                            <div class="error-message" id="mileage_error">لطفاً مقدار کیلومتر را وارد کنید</div>
                         </div>
                     </div>
+
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const unitSelect = document.getElementById('mileage_unit');
+                        const mileageLabel = document.getElementById('mileage_label');
+                        const mileageInput = document.getElementById('mileage_km');
+                        const mileageError = document.getElementById('mileage_error');
+
+                        function updateMileageText() {
+                            if (unitSelect.value === 'mile') {
+                                mileageLabel.textContent = 'مقدار مایل';
+                                mileageInput.placeholder = 'مثلا 80000 مایل';
+                                mileageError.textContent = 'لطفاً مقدار مایل را وارد کنید';
+                            } else {
+                                mileageLabel.textContent = 'مقدار کیلومتر';
+                                mileageInput.placeholder = 'مثلا 50000 کیلومتر';
+                                mileageError.textContent = 'لطفاً مقدار کیلومتر را وارد کنید';
+                            }
+                        }
+
+                        unitSelect.addEventListener('change', updateMileageText);
+                        updateMileageText();
+                    });
+                    </script>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>واحد پول</label>
+                            <select name="currency" id="currency" required>
+                                <option value="usd">دالر</option>
+                                <option value="afn">افغانی</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label id="price_label">قیمت (دالر)</label>
+                            <input type="number" name="price" id="price" placeholder="4500" required>
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const currencySelect = document.getElementById('currency');
+                            const priceLabel = document.getElementById('price_label');
+                            const priceInput = document.getElementById('price');
+
+                            function updatePriceLabel() {
+                                if (currencySelect.value === 'afn') {
+                                    priceLabel.textContent = 'قیمت (افغانی)';
+                                    priceInput.placeholder = 'مثلا 300000 افغانی';
+                                } else {
+                                    priceLabel.textContent = 'قیمت (دالر)';
+                                    priceInput.placeholder = 'مثلا 4500 دالر';
+                                }
+                            }
+
+                            currencySelect.addEventListener('change', updatePriceLabel);
+                            updatePriceLabel();
+                        });
+                        </script>
 
                     <!-- Main Image Field (NEW) -->
                     <div class="col-4">

@@ -40,8 +40,19 @@
                     
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>قیمت </label>
-                            <input type="number" name="price" value="{{ car.price|floatformat:0 }}" placeholder="45000000" required>
+                            <label>واحد پول</label>
+                            <select name="currency" id="currency" required>
+                                <option value="usd" {% if car.currency == 'usd' %}selected{% endif %}>دالر</option>
+                                <option value="afn" {% if car.currency == 'afn' %}selected{% endif %}>افغانی</option>
+                            </select>
+                            <div class="error-message">لطفاً واحد پول را انتخاب کنید</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label id="price_label">قیمت</label>
+                            <input type="number" name="price" id="price" value="{{ car.price|floatformat:0 }}" required>
                             <div class="error-message">لطفاً قیمت را وارد کنید</div>
                         </div>
                     </div>
@@ -78,13 +89,65 @@
                     
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>کارکرد (کیلومتر)</label>
-                            <input type="number" name="mileage_km" value="{{ car.mileage_km }}" placeholder="مثلا 50000" required>
-                            <div class="error-message">لطفاً کارکرد را وارد کنید</div>
+                            <label>واحد کارکرد</label>
+                            <select name="mileage_unit" id="mileage_unit" required>
+                                <option value="km" {% if car.mileage_unit == 'km' %}selected{% endif %}>کیلومتر</option>
+                                <option value="mile" {% if car.mileage_unit == 'mile' %}selected{% endif %}>مایل</option>
+                            </select>
+                            <div class="error-message">لطفاً واحد کارکرد را انتخاب کنید</div>
                         </div>
                     </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label id="mileage_label">مقدار کارکرد</label>
+                            <input type="number" name="mileage_km" id="mileage_km" value="{{ car.mileage_km }}" required>
+                            <div class="error-message">لطفاً مقدار کارکرد را وارد کنید</div>
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const currencySelect = document.getElementById('currency');
+                            const priceLabel = document.getElementById('price_label');
+                            const priceInput = document.getElementById('price');
+
+                            const mileageSelect = document.getElementById('mileage_unit');
+                            const mileageLabel = document.getElementById('mileage_label');
+                            const mileageInput = document.getElementById('mileage_km');
+
+                            function updatePriceLabel() {
+                                if (!currencySelect) return;
+
+                                if (currencySelect.value === 'afn') {
+                                    priceLabel.textContent = 'قیمت (افغانی)';
+                                    priceInput.placeholder = 'مثلاً 300000 افغانی';
+                                } else {
+                                    priceLabel.textContent = 'قیمت (دالر)';
+                                    priceInput.placeholder = 'مثلاً 4500 دالر';
+                                }
+                            }
+
+                            function updateMileageLabel() {
+                                if (!mileageSelect) return;
+
+                                if (mileageSelect.value === 'mile') {
+                                    mileageLabel.textContent = 'مقدار مایل';
+                                    mileageInput.placeholder = 'مثلاً 80000 مایل';
+                                } else {
+                                    mileageLabel.textContent = 'مقدار کیلومتر';
+                                    mileageInput.placeholder = 'مثلاً 50000 کیلومتر';
+                                }
+                            }
+
+                            currencySelect.addEventListener('change', updatePriceLabel);
+                            mileageSelect.addEventListener('change', updateMileageLabel);
+
+                            updatePriceLabel();
+                            updateMileageLabel();
+                        });
+                    </script>
                     
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>نوعیت گیربکس</label>
                             <select name="gearbox_type" required>
@@ -96,7 +159,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>نوع سوخت</label>
                             <input type="text" name="fuel_type" placeholder="پطرول و گازی" required value="{{ car.fuel_type }}">
