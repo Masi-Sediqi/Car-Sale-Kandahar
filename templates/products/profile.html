@@ -462,6 +462,17 @@ document.addEventListener('DOMContentLoaded', function() {
         transform: scale(1.05);
     }
 
+    .cart-action.sold-action {
+        background: #ffe8ea;
+        color: #dc3545;
+    }
+
+    .cart-action.sold-action:hover {
+        background: #dc3545;
+        color: white;
+        transform: scale(1.05);
+    }
+
     /* Custom Scrollbar */
     .table-responsive::-webkit-scrollbar {
         height: 8px;
@@ -544,10 +555,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         {% for pro in products %}
                         <tr>
                             <td>
-                                {% if pro.is_activated %}
-                                <span class="status-badge active">
-                                    <i class="ri-checkbox-circle-fill"></i> نشر شده
-                                </span>
+                                {% if pro.is_sold %}
+                                    <span class="status-badge sold">
+                                        <i class="ri-price-tag-3-fill"></i> فروخته شد
+                                    </span>
+                                {% elif pro.is_activated %}
+                                    <span class="status-badge active">
+                                        <i class="ri-checkbox-circle-fill"></i> نشر شده
+                                    </span>
                                 {% else %}
                                 <span class="status-badge inactive">
                                     <i class="ri-close-circle-fill"></i> انتظار
@@ -573,6 +588,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                 .status-badge.inactive {
                                     background-color: rgba(164, 94, 89, 0.1);
                                     color: #efdc08;
+                                }
+
+                                .status-badge.sold {
+                                    background-color: rgba(220, 53, 69, 0.12);
+                                    color: #dc3545;
                                 }
                             </style>
 
@@ -730,6 +750,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <a href="{% url 'products:edit_car' pro.id %}" class="cart-action edit-action" title="ایدیت">
                                         <i class="ri-edit-2-fill"></i>
                                     </a>
+
+                                    <form method="POST" action="{% url 'products:toggle_sold' pro.id %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button class="cart-action sold-action" type="submit" title="{% if pro.is_sold %}برداشتن علامت فروخته شده{% else %}علامت کردن به عنوان فروخته شده{% endif %}">
+                                            <i class="{% if pro.is_sold %}ri-arrow-go-back-line{% else %}ri-price-tag-3-fill{% endif %}"></i>
+                                        </button>
+                                    </form>
 
                                     <!-- Delete button that opens modal -->
                                     <button class="delete-btn" type="button"

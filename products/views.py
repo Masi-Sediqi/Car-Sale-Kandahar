@@ -5,6 +5,7 @@ from django.contrib import messages
 from users.models import *
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Q, Case, When, Value, IntegerField
+from django.views.decorators.http import require_POST
 # Create your views here.
 
 @login_required
@@ -85,6 +86,26 @@ def delete_car(request, id):
 
 
 @login_required
+@require_POST
+def toggle_sold(request, id):
+    car = get_object_or_404(NewCar, id=id)
+
+    if car.user != request.user and not request.user.is_staff:
+        messages.error(request, 'شما اجازه تغییر وضعیت این موتر را ندارید.')
+        return redirect('products:shop')
+
+    car.is_sold = not car.is_sold
+    car.save(update_fields=['is_sold', 'updated_at'])
+
+    if car.is_sold:
+        messages.success(request, 'موتر به عنوان فروخته شده علامت شد.')
+    else:
+        messages.success(request, 'علامت فروخته شده از موتر برداشته شد.')
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@login_required
 def edit_car(request, id):
     car = get_object_or_404(NewCar, id=id)
 
@@ -112,6 +133,7 @@ def edit_car(request, id):
 
         # اگر checkbox در HTML داری
         car.is_activated = request.POST.get('is_activated') == 'on'
+        car.is_sold = request.POST.get('is_sold') == 'on'
 
         if request.POST.get('remove_main_image'):
             if car.main_image:
@@ -168,7 +190,7 @@ def car_detail(request, id):
 def shop(request):
     query = request.GET.get('q', '').strip()
 
-    cars = NewCar.objects.filter(is_activated=True)
+    cars = NewCar.objects.filter(Q(is_activated=True) | Q(is_sold=True))
 
     if query:
         # Annotate priority for ordering: exact title or description first

@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from products.models import *
 from .models import *
 from django.contrib import messages
+from django.db.models import Q
 # Create your views here.
 
 def dashboard(request):
-    cars = NewCar.objects.filter(is_activated=True).order_by('-created_at')[:4]
+    cars = NewCar.objects.filter(Q(is_activated=True) | Q(is_sold=True)).order_by('-created_at')[:4]
 
     wishlist_car_ids = []
     if request.user.is_authenticated:

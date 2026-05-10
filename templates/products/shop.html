@@ -46,6 +46,9 @@
                 <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
                     <div class="product-card-one h-100">
                         <div class="product-img">
+                            {% if car.is_sold %}
+                                <span class="sold-badge">فروخته شد</span>
+                            {% endif %}
                             {% if car.main_image %}
                             <a href="{% url 'products:car_detail' car.id %}">
                                 <img src="{{ car.main_image.url }}" 
@@ -63,7 +66,7 @@
                         </div>
                         <div class="product-info">
                             <h5><a href="{% url 'products:car_detail' car.id %}" title="{{ car.title }}"> {{ car.title|truncatechars:22 }}</a></h5>
-                            <h5 class="product-price">قیمت: {{ car.price|floatformat:0 }} </h5>
+                            <h5 class="product-price">{% if car.is_sold %}فروخته شد{% else %}قیمت: {{ car.price|floatformat:0 }}{% endif %}</h5>
                             <ul class="product-amenity list-style">
                                 <li>گیربکس <span>{{ car.get_gearbox_type_display }}</span></li>
                                 <li>سوخت <span>{{ car.fuel_type }}</span></li>
@@ -416,6 +419,19 @@
 .product-img {
     position: relative;
     overflow: hidden;
+}
+
+.sold-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    background: #dc3545;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
 }
 
 .product-img img {

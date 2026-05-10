@@ -10,6 +10,7 @@ class NewCar(models.Model):
 
     title = models.CharField(max_length=255)
     is_activated = models.BooleanField(default=False, verbose_name="نشان داده شود؟")
+    is_sold = models.BooleanField(default=False, verbose_name="فروخته شده؟")
 
     year_of_manufacture = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=12, decimal_places=2)
@@ -20,6 +21,7 @@ class NewCar(models.Model):
     GEARBOX_CHOICES = [
         ('automatic', 'اتومات'),
         ('manual', 'گیر'),
+        ('both', 'اتومات و گیر'),
     ]
 
     CURRENCY_CHOICES = [

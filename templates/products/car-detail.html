@@ -504,8 +504,11 @@
                         <!-- Title & Price -->
                         <div class="title-section">
                             <h1>{{ car.title }}</h1>
+                                {% if car.is_sold %}
+                                <span class="status-badge status-inactive">فروخته شد</span>
+                                {% endif %}
                                 <span class="price-tag">
-                                    {{ car.price|floatformat:0 }} {{ car.get_currency_display }}
+                                    {% if car.is_sold %}فروخته شد{% else %}{{ car.price|floatformat:0 }} {{ car.get_currency_display }}{% endif %}
                                 </span>
                         </div>
                         
@@ -574,7 +577,9 @@
                             <div class="detail-row">
                                 <span class="detail-label">وضعیت</span>
                                 <span class="detail-value">
-                                    {% if car.is_activated %}
+                                    {% if car.is_sold %}
+                                        <span class="status-badge status-inactive">فروخته شد</span>
+                                    {% elif car.is_activated %}
                                         <span class="status-badge status-active">فعال</span>
                                     {% else %}
                                         <span class="status-badge status-inactive">غیرفعال</span>

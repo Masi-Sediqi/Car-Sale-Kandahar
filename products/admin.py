@@ -12,8 +12,9 @@ class NewCarImageInline(admin.TabularInline):
 # Main car admin
 @admin.register(NewCar)
 class NewCarAdmin(admin.ModelAdmin):
-    list_display = ('title', 'year_of_manufacture', 'price', 'gearbox_type', 'fuel_type', 'mileage_km', 'is_activated', 'created_at')
-    list_filter = ('gearbox_type', 'fuel_type', 'is_activated', 'year_of_manufacture')
+    list_display = ('title', 'year_of_manufacture', 'price', 'gearbox_type', 'fuel_type', 'mileage_km', 'is_activated', 'is_sold', 'created_at')
+    list_editable = ('is_activated', 'is_sold')
+    list_filter = ('gearbox_type', 'fuel_type', 'is_activated', 'is_sold', 'year_of_manufacture')
     search_fields = ('title',)
     inlines = [NewCarImageInline]
 
